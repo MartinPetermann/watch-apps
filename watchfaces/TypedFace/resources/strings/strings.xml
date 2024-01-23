@@ -8,12 +8,12 @@
     <string id="Complication1">Complication 1</string>
     <string id="Complication2">Complication 2</string>
     <string id="Complication3">Complication 3</string>
+    <string id="Complication4">Complication 4</string>
 
     <string id="Battery">Battery</string>
     <string id="Steps">Steps</string>
     <string id="Date">Date</string>
-    <string id="HeartRate">Heart Rate</string>
-    <string id="ActiveMinutes">Active Minutes Per Week</string>
+    <string id="Height">Height</string>
     <string id="None">None</string>
 
     <string id="ColorBlack">Black</string>

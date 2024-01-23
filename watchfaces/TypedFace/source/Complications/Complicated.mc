@@ -14,6 +14,8 @@ module Complicated {
     //! 2. A icon or number in the middle
     //! This class is the standard return value for all of them.
     class PercentModel {
+        //! Label
+        public var label as String;
         //! Percent to fill the arc.
         public var percent as Number;
         //! Graphics.BitmapType is a new named type that covers
@@ -23,9 +25,10 @@ module Complicated {
         //! Constructor
         //! @param p 0 - 100 value for progress bar
         //! @param i Icon to display
-        public function initialize(p as Number, i as BitmapType) {
+        public function initialize(l as String, p as Number, i as BitmapType) {
             // Initializing the members in the constructor
             // allows you to declare them as not being null
+            label = l;
             percent = p;
             icon = i;
         }
@@ -49,7 +52,20 @@ module Complicated {
         }
     }
 
-    typedef Model as PercentModel or LabelModel;
+    //! Model for complications that have the following appearance
+    //! 1. A label under the icon
+    class StringModel {
+        //! Label
+        var label as String;
+
+        //! Constructor
+        //! @param label Text label to display under icon
+        public function initialize(l as String) {
+            label = l;
+        }
+    }
+
+    typedef Model as PercentModel or LabelModel or StringModel;
 
     //! Interface that covers our various
     //! complication update callbacks
@@ -65,8 +81,7 @@ module Complicated {
         COMPLICATED_BATTERY,
         COMPLICATED_STEPS,
         COMPLICATED_DATE,
-        COMPLICATED_HR,
-        COMPLICATED_ACTIVE_MINUTES_WEEK
+        COMPLICATED_HEIGHT
     }
 
     //! Return an updater based on the requested complication
@@ -83,10 +98,12 @@ module Complicated {
                 return new Complicated.Steps();
             case COMPLICATED_DATE:
                 return new Complicated.Date();
-            case COMPLICATED_HR:
-                return new Complicated.HeartRate();
-            case COMPLICATED_ACTIVE_MINUTES_WEEK:
-                return new Complicated.ActiveMinutes();
+            case COMPLICATED_HEIGHT:
+                return new Complicated.Height();
+            // case COMPLICATED_HR:
+            //     return new Complicated.HeartRate();
+            // case COMPLICATED_ACTIVE_MINUTES_WEEK:
+            //    return new Complicated.ActiveMinutes();
             default:
                 return null;
         }

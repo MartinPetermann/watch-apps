@@ -23,8 +23,7 @@
             <listEntry value="0">@Strings.Battery</listEntry>
             <listEntry value="1">@Strings.Steps</listEntry>
             <listEntry value="2">@Strings.Date</listEntry>
-            <listEntry value="3">@Strings.HeartRate</listEntry>
-            <listEntry value="4">@Strings.ActiveMinutes</listEntry>
+            <listEntry value="3">@Strings.Height</listEntry>
             <listEntry value="-1">@Strings.None</listEntry>            
         </settingConfig>
     </setting>
@@ -34,8 +33,7 @@
             <listEntry value="0">@Strings.Battery</listEntry>
             <listEntry value="1">@Strings.Steps</listEntry>
             <listEntry value="2">@Strings.Date</listEntry>
-            <listEntry value="3">@Strings.HeartRate</listEntry>
-            <listEntry value="4">@Strings.ActiveMinutes</listEntry>
+            <listEntry value="3">@Strings.Height</listEntry>
             <listEntry value="-1">@Strings.None</listEntry>            
         </settingConfig>
     </setting>
@@ -45,14 +43,19 @@
             <listEntry value="0">@Strings.Battery</listEntry>
             <listEntry value="1">@Strings.Steps</listEntry>
             <listEntry value="2">@Strings.Date</listEntry>
-            <listEntry value="3">@Strings.HeartRate</listEntry>
-            <listEntry value="4">@Strings.ActiveMinutes</listEntry>
-            <listEntry value="-1">@Strings.None</listEntry>              
+            <listEntry value="3">@Strings.Height</listEntry>
+            <listEntry value="-1">@Strings.None</listEntry>
         </settingConfig>
     </setting>
 
-    <setting propertyKey="@Properties.UseMilitaryFormat" title="@Strings.MilitaryFormatTitle">
-        <settingConfig type="boolean" />
+    <setting propertyKey="@Properties.Complication4" title="@Strings.Complication4">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.Battery</listEntry>
+            <listEntry value="1">@Strings.Steps</listEntry>
+            <listEntry value="2">@Strings.Date</listEntry>
+            <listEntry value="3">@Strings.Height</listEntry>
+            <listEntry value="-1">@Strings.None</listEntry>              
+        </settingConfig>
     </setting>
 
 </settings>

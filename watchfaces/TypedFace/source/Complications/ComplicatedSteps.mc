@@ -25,7 +25,8 @@ module Complicated {
         public function updateModel() as Complicated.Model {
             var info = ActivityMonitor.getInfo();
             var stepsPercent = (info.steps.toFloat() / info.stepGoal.toFloat()) * 100;
-            return new PercentModel(stepsPercent.toNumber(), _icon);
+            var steps = "STEPS\n" + info.steps.toString();
+            return new PercentModel(steps, stepsPercent.toNumber(), _icon);
         }
     }
 }

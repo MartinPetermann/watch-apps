@@ -17,11 +17,13 @@ class TypedFaceView extends WatchUi.WatchFace {
     // so it has to be declared as accepting null
     private var _timeLabel as Text?;  
     private var _complications as Array<ComplicationDrawable>;
+    private var showSeconds as Boolean;
 
     //! Constructor
     function initialize() {
         WatchFace.initialize();
-        _complications = new Array<ComplicationDrawable>[3];
+        _complications = new Array<ComplicationDrawable>[4];
+        showSeconds = true;
     }
 
     //! Load layout
@@ -43,6 +45,10 @@ class TypedFaceView extends WatchUi.WatchFace {
         prop = Application.getApp().getProperty("Complication3");
         _complications[2].setModelUpdater(Complicated.getComplication(prop));
 
+        _complications[3] = View.findDrawableById("Complication4") as ComplicationDrawable;    
+        prop = Application.getApp().getProperty("Complication4");
+        _complications[3].setModelUpdater(Complicated.getComplication(prop));
+
     }
 
     //! Called when this View is brought to the foreground. Restore
@@ -55,20 +61,21 @@ class TypedFaceView extends WatchUi.WatchFace {
     //! @param dc Draw context
     function onUpdate(dc as Dc) as Void {
         // Get the current time and format it correctly
-        var timeFormat = "$1$:$2$";
-        var clockTime = System.getClockTime();
-        var hours = clockTime.hour;
-        if (!System.getDeviceSettings().is24Hour) {
-            if (hours > 12) {
-                hours = hours - 12;
-            }
+        var timeString;
+
+        if ( showSeconds == true ) {
+            var timeFormat = "$1$:$2$:$3$";
+            var clockTime = System.getClockTime();
+            var hours = clockTime.hour;
+
+            timeString = Lang.format(timeFormat, [hours, clockTime.min.format("%02d"), clockTime.sec.format("%02d")]);
         } else {
-            if (Application.getApp().getProperty("UseMilitaryFormat")) {
-                timeFormat = "$1$$2$";
-                hours = hours.format("%02d");
-            }
+            var timeFormat = "$1$:$2$";
+            var clockTime = System.getClockTime();
+            var hours = clockTime.hour;
+
+            timeString = Lang.format(timeFormat, [hours, clockTime.min.format("%02d")]);
         }
-        var timeString = Lang.format(timeFormat, [hours, clockTime.min.format("%02d")]);
 
         // Update the view
         _timeLabel.setColor(Application.getApp().getProperty("ForegroundColor"));
@@ -86,10 +93,12 @@ class TypedFaceView extends WatchUi.WatchFace {
 
     //! The user has just looked at their watch. Timers and animations may be started here.
     function onExitSleep() {
+        showSeconds = true;
     }
 
     //! Terminate any active timers and prepare for slow updates.
     function onEnterSleep() {
+        showSeconds = false;
     }
 
 }

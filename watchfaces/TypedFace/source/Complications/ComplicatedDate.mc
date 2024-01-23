@@ -14,18 +14,18 @@ module Complicated {
     //! Class to update the steps
     class Date {
         //! Steps icon
-        private var _icon as BitmapType;
+        // private var _icon as BitmapType;
 
         //! Constructor
         public function initialize() {
-            _icon = Application.loadResource(Rez.Drawables.calendar);
+            // _icon = Application.loadResource(Rez.Drawables.calendar);
         }
 
         //! Update the model 
         public function updateModel() as Complicated.Model {
             var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-            var dateString = Lang.format("$1$/$2$", [info.month, info.day]);
-            return new LabelModel(dateString, _icon);
+            var dateString = Lang.format("$1$.$2$.$3$", [info.day, info.month.format("%02d"), info.year % 100]);
+            return new StringModel(dateString);
         }
     }
 }
