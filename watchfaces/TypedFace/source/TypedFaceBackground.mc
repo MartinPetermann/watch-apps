@@ -9,7 +9,7 @@ import Toybox.Graphics;
 
 //! Drawable to update the background
 class Background extends WatchUi.Drawable {
-    // private var image as BitmapType;
+    private var image as BitmapType;
 
     //! Constructor
     function initialize() {
@@ -19,17 +19,17 @@ class Background extends WatchUi.Drawable {
 
         Drawable.initialize(dictionary);
 
-        // image = Application.loadResource( Rez.Drawables.background ) as BitmapResource;
+        image = Application.loadResource( Rez.Drawables.background2 ) as BitmapResource;
     }
 
     //! Draws the background
     function draw(dc as Dc) as Void {
         // Set the background color then call to clear the screen
-        dc.setColor(Graphics.COLOR_TRANSPARENT, Application.getApp().getProperty("BackgroundColor"));
+        // dc.setColor(Graphics.COLOR_TRANSPARENT, Application.getApp().getProperty("BackgroundColor"));
        
 
-        //dc.drawBitmap( 0, 0, image );
-        dc.clear();
+        dc.drawBitmap( 0, 0, image );
+        //dc.clear();
     }
 
 }

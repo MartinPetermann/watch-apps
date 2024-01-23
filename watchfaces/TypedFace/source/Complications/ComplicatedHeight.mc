@@ -18,7 +18,7 @@ module Complicated {
         private var _icon as BitmapType;
 
         public function initialize() {
-            _icon = Application.loadResource(Rez.Drawables.height);
+            _icon = Application.loadResource(Rez.Drawables.gray);
         }
 
         //! Update the model 

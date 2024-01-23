@@ -27,4 +27,7 @@
     <bitmap id="background2" filename="h2.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
     </bitmap>  
 
+    <bitmap id="gray" filename="gray.png" scaleX="25%" scaleY="25%" scaleRelativeTo="screen" dithering="none">      
+    </bitmap>  
+
 </drawables>
