@@ -33,7 +33,7 @@ module Complicated {
                 output = output + " ft";
             }
 
-            return new LabelModel(output, _icon);
+            return new PercentModel(output, 100, _icon);
         }
     }
 }
