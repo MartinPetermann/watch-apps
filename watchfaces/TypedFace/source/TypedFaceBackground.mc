@@ -19,7 +19,7 @@ class Background extends WatchUi.Drawable {
 
         Drawable.initialize(dictionary);
 
-        image = Application.loadResource( Rez.Drawables.background2 ) as BitmapResource;
+        image = Application.loadResource( Rez.Drawables.background4 ) as BitmapResource;
     }
 
     //! Draws the background

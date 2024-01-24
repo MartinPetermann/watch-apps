@@ -18,7 +18,7 @@ module Complicated {
         private var _icon as BitmapType;
 
         public function initialize() {
-            _icon = Application.loadResource(Rez.Drawables.gray);
+            _icon = Application.loadResource(Rez.Drawables.nice);
         }
 
         //! Update the model 
@@ -33,7 +33,7 @@ module Complicated {
                 output = output + " ft";
             }
 
-            return new PercentModel(output, 100, _icon);
+            return new PercentModel(output, 0, _icon);
         }
     }
 }

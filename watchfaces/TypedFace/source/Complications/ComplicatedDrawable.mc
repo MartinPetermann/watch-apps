@@ -73,12 +73,14 @@ module Complicated {
                         dc.setPenWidth(2);
 
                         // Start drawing from the top
-                        if(percent <= 25) {
-                            dc.drawArc(_centerX, _centerY, _radius, Graphics.ARC_CLOCKWISE, 90, 90 - (360 * (percent / 100.0)));
-                        } else {
-                            dc.drawArc(_centerX, _centerY, _radius, Graphics.ARC_CLOCKWISE, 90, 0);
-                            dc.drawArc(_centerX, _centerY, _radius, Graphics.ARC_CLOCKWISE, 0, 360 - (360 * ((percent - 25.0) / 100.0)));
-                        }                        
+                        if (percent > 0) {
+                            if(percent <= 25) {
+                                dc.drawArc(_centerX, _centerY, _radius, Graphics.ARC_CLOCKWISE, 90, 90 - (360 * (percent / 100.0)));
+                            } else {
+                                dc.drawArc(_centerX, _centerY, _radius, Graphics.ARC_CLOCKWISE, 90, 0);
+                                dc.drawArc(_centerX, _centerY, _radius, Graphics.ARC_CLOCKWISE, 0, 360 - (360 * ((percent - 25.0) / 100.0)));
+                            }
+                        }                     
                     } 
 
                     // Draw a drop shadow behind the text

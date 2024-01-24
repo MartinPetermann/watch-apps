@@ -1,23 +1,23 @@
 <layout id="WatchFace">
     <drawable class="Background" />
     <drawable id="Complication1" class="Complicated.ComplicationDrawable">
-        <param name="locX">dc.getWidth() * .30</param>
-        <param name="locY">dc.getHeight() * .76</param>
+        <param name="locX">dc.getWidth() * .20</param>
+        <param name="locY">dc.getHeight() * .72</param>
     </drawable>
 
     <drawable id="Complication2" class="Complicated.ComplicationDrawable">
-        <param name="locX">dc.getWidth() * .70 </param>
-        <param name="locY">dc.getHeight() * .76</param>
+        <param name="locX">dc.getWidth() * .80 </param>
+        <param name="locY">dc.getHeight() * .72</param>
     </drawable>
 
     <drawable id="Complication3" class="Complicated.ComplicationDrawable">
         <param name="locX">dc.getWidth() / 2 </param>
-        <param name="locY">dc.getHeight() * .25</param>
+        <param name="locY">dc.getHeight() * 0</param>
     </drawable>
 
     <drawable id="Complication4" class="Complicated.ComplicationDrawable">
         <param name="locX">dc.getWidth() / 2 </param>
-        <param name="locY">dc.getHeight() * .16</param>
+        <param name="locY">dc.getHeight() * .86</param>
     </drawable>
     <label id="TimeLabel" x="center" y="center" font="Graphics.FONT_NUMBER_MEDIUM" justification="Graphics.TEXT_JUSTIFY_CENTER" color="Graphics.COLOR_BLUE" />
 </layout>
