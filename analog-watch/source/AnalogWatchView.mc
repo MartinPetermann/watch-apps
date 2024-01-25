@@ -12,7 +12,7 @@ import Toybox.Application;
 import Complicated;
 
 //! Main watch face view
-class TypedFaceView extends WatchUi.WatchFace {
+class AnalogWatchView extends WatchUi.WatchFace {
     // We can't initialize time label in the initializer
     // so it has to be declared as accepting null
     private var _timeLabel as Text?;  
