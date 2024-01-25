@@ -7,8 +7,8 @@ import Toybox.Application;
 import Toybox.WatchUi;
 import Toybox.Lang;
 
-//! App class for the TypedFace
-class TypedFaceApp extends Application.AppBase {
+//! App class for the DigitalWatch
+class DigitalWatchApp extends Application.AppBase {
 
     //! Constructor
     function initialize() {
@@ -27,7 +27,7 @@ class TypedFaceApp extends Application.AppBase {
 
     //! Return the initial view of your application here
     function getInitialView() {
-        return [ new TypedFaceView() ];
+        return [ new DigitalWatchView() ];
     }
 
     // New app settings have been received so trigger a UI update
