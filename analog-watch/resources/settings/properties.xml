@@ -2,10 +2,27 @@
 
     <property id="BackgroundColor" type="number">0x000000</property>
     <property id="ForegroundColor" type="number">0xFFFFFF</property>
-    <property id="UseMilitaryFormat" type="boolean">false</property>
     <property id="Complication1" type="number">0</property>
     <property id="Complication2" type="number">1</property>
     <property id="Complication3" type="number">2</property>
     <property id="Complication4" type="number">3</property>
 
+    <property id="Use24HourFormat" type="number">2</property>
+    <property id="ShowTicks" type="boolean">true</property>
+    <property id="Background" type="number">0</property>
+    <property id="DateOnRight" type="boolean">false</property>
+    <property id="ShowStatusBar" type="boolean">true</property>
+    <property id="BoxColor" type="number">3</property>
+    <property id="TextColor" type="number">1</property>
+    <property id="SecondHandColor" type="number">6</property>
+    <property id="HourMinHandColor" type="number">1</property>
+    <property id="AlwaysOn" type="boolean">true</property>
+    <property id="ShowBoxes" type="boolean">false</property>
+    <property id="RightBoxDisplay1" type="number">1</property>
+    <property id="TickStyle" type="number">1</property>
+    <property id="ShowMinTicks" type="boolean">true</property>
+   	<property id="NumberStyle" type="number">2</property>
+   	<property id="HandStyle" type="number">0</property>
+   	<property id="ShowNumbersAt" type="boolean">true</property>
+    <property id="ShowSecondHand" type="boolean">true</property>
 </properties>

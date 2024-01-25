@@ -1,37 +1,31 @@
-//
-// Copyright 2015-2021 by Garmin Ltd. or its subsidiaries.
-// Subject to Garmin SDK License Agreement and Wearables
-// Application Developer Agreement.
-//
-import Toybox.Application;
-import Toybox.WatchUi;
-import Toybox.Lang;
+using Toybox.Application;
+using Toybox.WatchUi;
 
-//! App class for the AnalogWatch
 class AnalogWatchApp extends Application.AppBase {
 
-    //! Constructor
     function initialize() {
         AppBase.initialize();
     }
 
-    //! onStart() is called on application start up
-    //! @param state Start parameters
-    function onStart(state as Dictionary?) {
+    // onStart() is called on application start up
+    function onStart(state) {
     }
 
-    //! onStop() is called when your application is exiting
-    //! @param state Stop parameters
-    function onStop(state as Dictionary?) {
+    // onStop() is called when your application is exiting
+    function onStop(state) {
     }
 
-    //! Return the initial view of your application here
+    // Return the initial view of your application here
     function getInitialView() {
-        return [ new AnalogWatchView() ];
+        if( Toybox.WatchUi has :WatchFaceDelegate ) {
+            return [ new Main.AnalogWatchView(), new Main.AnalogWatchDelegate() ];
+        } else {
+            return [new Main.AnalogWatchView()];
+        }
     }
 
     // New app settings have been received so trigger a UI update
-    function onSettingsChanged() as Void {
+    function onSettingsChanged() {
         WatchUi.requestUpdate();
     }
 
