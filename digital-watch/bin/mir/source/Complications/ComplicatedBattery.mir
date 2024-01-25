@@ -1,0 +1,80 @@
+[ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/Complications/ComplicatedBattery.mc"; @line = 6; ]
+import Toybox.Application;
+[ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/Complications/ComplicatedBattery.mc"; @line = 7; ]
+import Toybox.Lang;
+[ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/Complications/ComplicatedBattery.mc"; @line = 8; ]
+import Toybox.Graphics;
+[ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/Complications/ComplicatedBattery.mc"; @line = 9; ]
+import Toybox.System;
+[ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/Complications/ComplicatedBattery.mc"; @line = 11; ]
+module Complicated {
+    [ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/Complications/ComplicatedBattery.mc"; @line = 11; ]
+    <init> {
+    }
+    [ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/Complications/ComplicatedBattery.mc"; @line = 14; ]
+    class Battery{
+        [ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/Complications/ComplicatedBattery.mc"; @line = 14; ]
+        <init> {
+        }
+        [ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/Complications/ComplicatedBattery.mc"; @line = 14; ]
+        static
+        <init> {
+        }
+        [ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/Complications/ComplicatedBattery.mc"; @line = 17; @position = 20; ]
+        private
+        var _icon as BitmapType;
+        [ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/Complications/ComplicatedBattery.mc"; @line = 18; @position = 20; ]
+        private
+        var _label as String;
+        //! Constructor
+        [ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/Complications/ComplicatedBattery.mc"; @line = 21; ]
+        public
+        function initialize() as Void {
+_Users_martinpetermann_C_Garmin_garmin_apps_digital_watch_source_Complications_ComplicatedBattery_mc_21_37_24_8_start:
+[ "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/Complications/ComplicatedBattery.mc" 22 12 ]
+            %tmp.1 = getm $.Toybox.Application;
+            %tmp.2 = getv function %tmp.1 :loadResource;
+            %tmp.4 = getv ? :Rez;
+            %tmp.5 = getv %tmp.4 :Drawables;
+            %tmp.6 = getv %tmp.5 :battery;
+            %tmp.7 = invoke %tmp.1 %tmp.2(%tmp.6);
+            putv self :_icon %tmp.7;
+[ "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/Complications/ComplicatedBattery.mc" 23 12 ]
+            %tmp.8 = "🔋";
+            putv self :_label %tmp.8;
+_Users_martinpetermann_C_Garmin_garmin_apps_digital_watch_source_Complications_ComplicatedBattery_mc_21_37_24_8_stop:
+        }
+        //! Update the model
+        [ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/Complications/ComplicatedBattery.mc"; @line = 27; ]
+        public
+        function updateModel() as Complicated.Model {
+_Users_martinpetermann_C_Garmin_garmin_apps_digital_watch_source_Complications_ComplicatedBattery_mc_27_59_33_8_start:
+[ "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/Complications/ComplicatedBattery.mc" 28 12 ]
+            [ "_Users_martinpetermann_C_Garmin_garmin_apps_digital_watch_source_Complications_ComplicatedBattery_mc_27_59_33_8_start" "_Users_martinpetermann_C_Garmin_garmin_apps_digital_watch_source_Complications_ComplicatedBattery_mc_27_59_33_8_stop" ]
+            %stats.1 = local;
+            %tmp.1 = getm $.Toybox.System;
+            %tmp.2 = getv function %tmp.1 :getSystemStats;
+            %tmp.3 = invoke %tmp.1 %tmp.2();
+            lputv %stats.1 %tmp.3;
+[ "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/Complications/ComplicatedBattery.mc" 29 12 ]
+            [ "_Users_martinpetermann_C_Garmin_garmin_apps_digital_watch_source_Complications_ComplicatedBattery_mc_27_59_33_8_start" "_Users_martinpetermann_C_Garmin_garmin_apps_digital_watch_source_Complications_ComplicatedBattery_mc_27_59_33_8_stop" ]
+            %battery.2 = local;
+            %tmp.4 = lgetv %stats.1;
+            %tmp.5 = getv %tmp.4 :battery;
+            lputv %battery.2 %tmp.5;
+[ "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/Complications/ComplicatedBattery.mc" 32 12 ]
+            %tmp.9 = getv ? :PercentModel;
+            %tmp.11 = getv ? :_label;
+            %tmp.12 = lgetv %battery.2;
+            %tmp.13 = getv function %tmp.12 :toNumber;
+            %tmp.14 = invoke %tmp.12 %tmp.13();
+            %tmp.16 = getv ? :_icon;
+            %tmp.6 = newc %tmp.9 (%tmp.11, %tmp.14, %tmp.16);
+            ret %tmp.6;
+_Users_martinpetermann_C_Garmin_garmin_apps_digital_watch_source_Complications_ComplicatedBattery_mc_27_59_33_8_stop:
+        }
+    }
+}
+[ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/Complications/ComplicatedBattery.mc"; @line = 6; ]
+<init> {
+}

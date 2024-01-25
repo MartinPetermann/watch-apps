@@ -1,0 +1,64 @@
+[ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/TypedFaceBackground.mc"; @line = 6; ]
+import Toybox.WatchUi;
+[ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/TypedFaceBackground.mc"; @line = 7; ]
+import Toybox.Application;
+[ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/TypedFaceBackground.mc"; @line = 8; ]
+import Toybox.Graphics;
+[ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/TypedFaceBackground.mc"; @line = 11; ]
+class Background extends WatchUi.Drawable{
+    [ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/TypedFaceBackground.mc"; @line = 11; ]
+    <init> {
+    }
+    [ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/TypedFaceBackground.mc"; @line = 11; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/TypedFaceBackground.mc"; @line = 12; @position = 16; ]
+    private
+    var image as BitmapType;
+    //! Constructor
+    [ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/TypedFaceBackground.mc"; @line = 15; ]
+    function initialize() as Void {
+_Users_martinpetermann_C_Garmin_garmin_apps_digital_watch_source_TypedFaceBackground_mc_15_26_23_4_start:
+[ "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/TypedFaceBackground.mc" 16 8 ]
+        [ "_Users_martinpetermann_C_Garmin_garmin_apps_digital_watch_source_TypedFaceBackground_mc_15_26_23_4_start" "_Users_martinpetermann_C_Garmin_garmin_apps_digital_watch_source_TypedFaceBackground_mc_15_26_23_4_stop" ]
+        %dictionary.1 = local;
+        %tmp.1 = newd 1;
+        %tmp.3 = const :identifier;
+        %tmp.4 = "Background";
+        %tmp.5 = dup %tmp.1;
+        %tmp.6 = aputv %tmp.5 %tmp.3 %tmp.4;
+        lputv %dictionary.1 %tmp.6;
+[ "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/TypedFaceBackground.mc" 20 8 ]
+        %tmp.8 = getv ? :Drawable;
+        %tmp.9 = getv function %tmp.8 :initialize;
+        %tmp.11 = lgetv %dictionary.1;
+        invoke %tmp.8 %tmp.9(%tmp.11);
+[ "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/TypedFaceBackground.mc" 22 8 ]
+        %tmp.12 = getm $.Toybox.Application;
+        %tmp.13 = getv function %tmp.12 :loadResource;
+        %tmp.15 = getv ? :Rez;
+        %tmp.16 = getv %tmp.15 :Drawables;
+        %tmp.17 = getv %tmp.16 :background4;
+        %tmp.18 = invoke %tmp.12 %tmp.13(%tmp.17);
+        %tmp.19 = as %tmp.18 BitmapResource;
+        putv self :image %tmp.19;
+_Users_martinpetermann_C_Garmin_garmin_apps_digital_watch_source_TypedFaceBackground_mc_15_26_23_4_stop:
+    }
+    //! Draws the background
+    [ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/TypedFaceBackground.mc"; @line = 26; ]
+    function draw(dc as Dc) as Void {
+_Users_martinpetermann_C_Garmin_garmin_apps_digital_watch_source_TypedFaceBackground_mc_26_36_33_4_start:
+[ "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/TypedFaceBackground.mc" 31 8 ]
+        %tmp.1 = lgetv %dc;
+        %tmp.2 = getv function %tmp.1 :drawBitmap;
+        %tmp.3 = 0;
+        %tmp.4 = 0;
+        %tmp.6 = getv ? :image;
+        invoke %tmp.1 %tmp.2(%tmp.3, %tmp.4, %tmp.6);
+_Users_martinpetermann_C_Garmin_garmin_apps_digital_watch_source_TypedFaceBackground_mc_26_36_33_4_stop:
+    }
+}
+[ @file = "/Users/martinpetermann/C/Garmin/garmin-apps/digital-watch/source/TypedFaceBackground.mc"; @line = 6; ]
+<init> {
+}
