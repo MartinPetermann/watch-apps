@@ -1,5 +1,5 @@
-using Toybox.Application;
-using Toybox.WatchUi;
+import Toybox.Application;
+import Toybox.WatchUi;
 
 class AnalogWatchApp extends Application.AppBase {
 
@@ -17,11 +17,7 @@ class AnalogWatchApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() {
-        if( Toybox.WatchUi has :WatchFaceDelegate ) {
-            return [ new Main.AnalogWatchView(), new Main.AnalogWatchDelegate() ];
-        } else {
-            return [new Main.AnalogWatchView()];
-        }
+        return [ new SimpleAnalogView() ];
     }
 
     // New app settings have been received so trigger a UI update
