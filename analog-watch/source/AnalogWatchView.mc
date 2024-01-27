@@ -114,6 +114,8 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 
     // Update the view
     function onUpdate(dc) {
+		View.onUpdate(dc);	
+
 		if(needsProtection && lowPower) {
 			dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
 			dc.clearClip();
@@ -129,8 +131,7 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 
 			updateValues(dc.getWidth());
 
-			drawBackground(dc);
-				
+			drawBackground(dc);			
 
 			if(partialUpdates && ((!lowMemDevice && !lowPower) || (!lowMemDevice && lowPower))) {
 				dc.setColor(second_hand_color, Graphics.COLOR_TRANSPARENT);
@@ -209,7 +210,7 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 		// 	dc.drawLine(width, i, i, width);
 		// }
 
-		dc.drawBitmap( 0, 0, image );
+		// dc.drawBitmap( 0, 0, image );
     	
 		if(tick_style == 1) {
     		dc.setColor(foreground_color, Graphics.COLOR_TRANSPARENT);
@@ -237,27 +238,9 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 			}
 		}
 
-    	//drawDate(dc, centerOnLeft(dc, dow_size[0] + 4 + date_size[0]), width/2 - dow_size[1]/2);	
+    	drawDate(dc, height/2 - 50, width/12);	
 		//drawBox(dc);
 		//drawStatusBox(dc, width/2, centerOnLeft(dc, status_box_size[1]));
-
-		setLayout(Rez.Layouts.WatchFace(dc));
-
-		_complications[0] = View.findDrawableById("Complication1") as ComplicationDrawable;
-        var prop = Application.getApp().getProperty("Complication1");
-        _complications[0].setModelUpdater(Complicated.getComplication(prop));
-
-        _complications[1] = View.findDrawableById("Complication2") as ComplicationDrawable;    
-        prop = Application.getApp().getProperty("Complication2");
-        _complications[1].setModelUpdater(Complicated.getComplication(prop));
-
-        _complications[2] = View.findDrawableById("Complication3") as ComplicationDrawable;    
-        prop = Application.getApp().getProperty("Complication3");
-        _complications[2].setModelUpdater(Complicated.getComplication(prop));
-
-        _complications[3] = View.findDrawableById("Complication4") as ComplicationDrawable;    
-        prop = Application.getApp().getProperty("Complication4");
-        _complications[3].setModelUpdater(Complicated.getComplication(prop));
     	
     	dc.setColor(hour_min_hand_color, Graphics.COLOR_TRANSPARENT);
     	drawHandOffset(dc, 12.00, 60.00, hours, minutes, relative_hour_hand_length*width, relative_hour_hand_stroke*width);
@@ -630,11 +613,11 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 	function drawDate(dc, x, y) {
 		var width = dc.getWidth();
 		var height = dc.getHeight();
-    	var info = Gregorian.info(Time.now(), Time.FORMAT_LONG);
-		var dowString = info.day_of_week;
 		
-		drawTextBox(dc, dowString, x, y, dow_size[0], dow_size[1]);
-		drawTextBox(dc, info.day.toString(), x + dow_size[0] + 4, y, date_size[0], date_size[1]);
+		var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+		var dateString = Lang.format("$1$.$2$.$3$", [info.day, info.month.format("%02d"), info.year % 100]);
+
+		drawTextBox(dc, dateString, x, y, dow_size[0], dow_size[1]);
     }
     
     function drawTimeBox(dc, x, y) {
