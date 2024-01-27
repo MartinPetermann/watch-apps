@@ -70,7 +70,7 @@ module Complicated {
                         var percent = (model as PercentModel).percent;
                         
                         dc.setColor(foregroundColor, Graphics.COLOR_TRANSPARENT);
-                        dc.setPenWidth(2);
+                        dc.setPenWidth(4);
 
                         // Start drawing from the top
                         if (percent > 0) {
