@@ -116,34 +116,26 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     function onUpdate(dc) {
 		View.onUpdate(dc);	
 
-		if(needsProtection && lowPower) {
-			dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
-			dc.clearClip();
-			dc.clear();
-			updateValues(dc.getWidth());
-			drawScreenSaver(dc);
-		} else {
-			var clockTime = System.getClockTime();
-			var hours = clockTime.hour;
-			var minutes = clockTime.min;
-			var seconds = clockTime.sec;
-			var width = dc.getWidth();
+		var clockTime = System.getClockTime();
+		var hours = clockTime.hour;
+		var minutes = clockTime.min;
+		var seconds = clockTime.sec;
+		var width = dc.getWidth();
 
-			updateValues(dc.getWidth());
+		updateValues(dc.getWidth());
 
-			drawBackground(dc);			
+		drawBackground(dc);			
 
-			if(partialUpdates && ((!lowMemDevice && !lowPower) || (!lowMemDevice && lowPower))) {
-				dc.setColor(second_hand_color, Graphics.COLOR_TRANSPARENT);
-				drawSecondHandClip(dc, 60, seconds, relative_sec_hand_length*width, relative_sec_hand_stroke*width);
-			} else if(lowMemDevice && !lowPower) {
-				dc.setColor(second_hand_color, Graphics.COLOR_TRANSPARENT);
-				drawHand(dc, 60, seconds, relative_sec_hand_length*width, relative_sec_hand_stroke*width);
-			}
-
-			dc.setColor(box_color, Graphics.COLOR_TRANSPARENT);
-			dc.fillCircle(dc.getWidth()/2-1, dc.getHeight()/2-1, relative_center_radius*width);
+		if(partialUpdates && ((!lowMemDevice && !lowPower) || (!lowMemDevice && lowPower))) {
+			dc.setColor(second_hand_color, Graphics.COLOR_TRANSPARENT);
+			drawSecondHandClip(dc, 60, seconds, relative_sec_hand_length*width, relative_sec_hand_stroke*width);
+		} else if(lowMemDevice && !lowPower) {
+			dc.setColor(second_hand_color, Graphics.COLOR_TRANSPARENT);
+			drawHand(dc, 60, seconds, relative_sec_hand_length*width, relative_sec_hand_stroke*width);
 		}
+
+		dc.setColor(box_color, Graphics.COLOR_TRANSPARENT);
+		dc.fillCircle(dc.getWidth()/2-1, dc.getHeight()/2-1, relative_center_radius*width);
     }
     
 	//use this to update values controlled by settings
