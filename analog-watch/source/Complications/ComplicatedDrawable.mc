@@ -28,7 +28,7 @@ module Complicated {
 
             _centerX = params[:locX];
             _centerY = params[:locY];
-            _radius = backgroundHeight / 1.6;
+            _radius = backgroundHeight / 1.25;
 
             var options = {
                 :locX => params[:locX] - (backgroundWidth / 2),
@@ -83,23 +83,17 @@ module Complicated {
                         }                     
                     } 
 
-                    // Draw a drop shadow behind the text
-                    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-                    dc.drawText(_centerX+1, _centerY + (_radius * 0) +1, Graphics.FONT_SYSTEM_XTINY, label, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
                     // Draw the label
                     dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-                    dc.drawText(_centerX, _centerY + (_radius * 0), Graphics.FONT_SYSTEM_XTINY, label, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+                    dc.drawText(_centerX, _centerY + (_radius * 0), Graphics.FONT_TINY, label, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
                 } else if (model instanceof StringModel) {
                     // Handle drawing the label
                     var label = model.label;
 
-                    // Draw a drop shadow behind the text
-                    dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-                    dc.drawText(_centerX+1, _centerY + (_radius * .75) +1, Graphics.FONT_SYSTEM_TINY, label, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
                     // Draw the label
                     dc.setColor(foregroundColor, Graphics.COLOR_TRANSPARENT);
-                    dc.drawText(_centerX, _centerY + (_radius * .75), Graphics.FONT_SYSTEM_TINY, label, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);                    
+                    dc.drawText(_centerX, _centerY + (_radius * .75), Graphics.FONT_TINY, label, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);                    
                 }
             }
         }

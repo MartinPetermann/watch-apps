@@ -53,22 +53,7 @@
     
     <setting propertyKey="@Properties.ShowMinTicks" title="@Strings.ShowMinTicksTitle">
         <settingConfig type="boolean" />
-    </setting>
-    
-    <setting propertyKey="@Properties.TickStyle" title="@Strings.TickStyleTitle">
-         <settingConfig type="list">
-           	<listEntry value="0">@Strings.TS1</listEntry>
-           	<listEntry value="1">@Strings.TS2</listEntry>
-           	<listEntry value="2">@Strings.TS3</listEntry>
-           	<listEntry value="3">@Strings.TS4</listEntry>
-        </settingConfig>
-     </setting>
-
-    
-    <setting propertyKey="@Properties.ShowBoxes" title="@Strings.ShowBoxesTitle">
-        <settingConfig type="boolean" />
-    </setting>
-    
+    </setting>   
     
     <setting propertyKey="@Properties.TextColor" title="@Strings.TextColorTitle">
          <settingConfig type="list">

@@ -4,11 +4,11 @@
         Import the SVGs and scale all the icons to 10% of the screen
         All icons from freeicons.io
     -->
-    <bitmap id="battery" filename="Europa.1.png" scaleX="25%" scaleY="25%" scaleRelativeTo="screen">      
+    <bitmap id="battery" filename="Europa.1.png" scaleX="32%" scaleY="32%" scaleRelativeTo="screen">      
     </bitmap>
-    <bitmap id="steps" filename="Mainz.2.png" scaleX="25%" scaleY="25%" scaleRelativeTo="screen" dithering="none"> 
+    <bitmap id="steps" filename="Mainz.2.png" scaleX="32%" scaleY="32%" scaleRelativeTo="screen" dithering="none"> 
     </bitmap>
-    <bitmap id="height" filename="Berg.png" scaleX="25%" scaleY="25%" scaleRelativeTo="screen" dithering="none"> 
+    <bitmap id="height" filename="Berg.png" scaleX="32%" scaleY="32%" scaleRelativeTo="screen" dithering="none"> 
     </bitmap>     
     <bitmap id="complication" filename="complication.svg" scaleX="20%" scaleY="20%" scaleRelativeTo="screen" dithering="none">
         <palette>
@@ -33,7 +33,10 @@
     <bitmap id="background4" filename="h4.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
     </bitmap>  
 
-    <bitmap id="nice" filename="gray.3.png" scaleX="25%" scaleY="25%" scaleRelativeTo="screen" dithering="none">      
+    <bitmap id="background5" filename="h5.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
+    </bitmap>  
+
+    <bitmap id="nice" filename="gray.4.png" scaleX="32%" scaleY="32%" scaleRelativeTo="screen" dithering="none">      
     </bitmap>  
 
 </drawables>

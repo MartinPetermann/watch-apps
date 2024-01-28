@@ -16,13 +16,7 @@
    	<string id = "TextColorTitle">Text and status info color</string>
    	<string id = "ShowMinTicksTitle">Show ticks for minutes</string>
    	<string id = "TickStyleTitle">Tick style</string>
-
-   	
-   	<string id = "TS1">None</string>
-   	<string id = "TS2">Dash</string>
-   	<string id = "TS3">Circle</string>
-   	<string id = "TS4">Triangle</string>
-   		
+ 		
    	<string id="Color1">Black</string>
    	<string id="Color2">White</string>
    	<string id="Color3">Light Gray</string>

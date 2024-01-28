@@ -12,7 +12,7 @@ class Background extends WatchUi.Drawable {
 
         Drawable.initialize(dictionary);
 
-        image = Application.loadResource( Rez.Drawables.background4 ) as BitmapResource;
+        image = Application.loadResource( Rez.Drawables.background5 ) as BitmapResource;
     }
 
     function draw(dc) {

@@ -31,7 +31,6 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 	var second_hand_color;
 	var hour_min_hand_color;
 	var text_color;
-	var tick_style;
 	var show_min_ticks;
 	var ssloc = [100, 100];
 	var xmult = 1.2;
@@ -43,10 +42,6 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     var relative_min_tick_length = .04;
     var relative_hour_tick_stroke = .04;
     var relative_min_tick_stroke = .04;
-	var relative_min_circle_tick_size = .01;
-	var relative_hour_circle_tick_size = .02;
-	var relative_hour_triangle_tick_size = .04;
-	var relative_min_triangle_tick_size = .02;
     
     var relative_hour_hand_length = .20;
     var relative_min_hand_length = .40;
@@ -180,7 +175,6 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 		second_hand_color = getColor(Application.getApp().getProperty("SecondHandColor"));
 		hour_min_hand_color = getColor(Application.getApp().getProperty("HourMinHandColor"));
 		text_color = getColor(Application.getApp().getProperty("TextColor"));
-		tick_style = Application.getApp().getProperty("TickStyle");
 		show_min_ticks = Application.getApp().getProperty("ShowMinTicks");
 	}
 
@@ -191,48 +185,18 @@ class SimpleAnalogView extends WatchUi.WatchFace {
         var seconds = clockTime.sec;
         var width = dc.getWidth();
         var height = dc.getHeight();
-        
-    	// dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
-    	// dc.clear();
+           	
 
-		// drawGradient(getRGB(background_color_1), getRGB(background_color_2), dc);
-
-		// for(var i = 0; i < width*2; i++) {
-		// 	dc.setColor(i*3, 0x000000 + i);
-		// 	dc.drawLine(width, i, i, width);
-		// }
-
-		// dc.drawBitmap( 0, 0, image );
-    	
-		if(tick_style == 1) {
-    		dc.setColor(foreground_color, Graphics.COLOR_TRANSPARENT);
-			if(show_min_ticks) {
-				drawTicks(dc, relative_hour_tick_length*width, relative_hour_tick_stroke*width, 12);
-    			drawTicks(dc, relative_min_tick_length*width, relative_min_tick_stroke*width, 60);
-			} else {
-				drawTicks(dc, relative_min_tick_length*width, relative_min_tick_stroke*width, 12);
-			}
-		} else if(tick_style == 2) {
-			dc.setColor(foreground_color, Graphics.COLOR_TRANSPARENT);
-			if(show_min_ticks) {
-				drawTicksCircle(dc, relative_hour_circle_tick_size*width, 1, 12);
-    			drawTicksCircle(dc, relative_min_circle_tick_size*width, 1, 60);
-			} else {
-				drawTicksCircle(dc, relative_min_circle_tick_size*width, 1, 12);
-			}
-		} else if(tick_style == 3) {
-			dc.setColor(foreground_color, Graphics.COLOR_TRANSPARENT);
-			if(show_min_ticks) {
-				drawTicksTriangle(dc, relative_hour_triangle_tick_size*width, 1, 12);
-    			drawTicksTriangle(dc, relative_min_triangle_tick_size*width, 1, 60);
-			} else {
-				drawTicksTriangle(dc, relative_min_triangle_tick_size*width, 1, 12);
-			}
+		dc.setColor(foreground_color, Graphics.COLOR_TRANSPARENT);
+		if(show_min_ticks) {
+			drawTicks(dc, relative_hour_tick_length*width, relative_hour_tick_stroke*width, 12);
+			drawTicks(dc, relative_min_tick_length*width, relative_min_tick_stroke*width, 60);
+		} else {
+			drawTicks(dc, relative_min_tick_length*width, relative_min_tick_stroke*width, 12);
 		}
 
-    	drawDate(dc, height/2 - 50, width/12);	
-		//drawBox(dc);
-		//drawStatusBox(dc, width/2, centerOnLeft(dc, status_box_size[1]));
+
+    	drawDate(dc, height/2 - 44, width/12);	
     	
     	dc.setColor(hour_min_hand_color, Graphics.COLOR_TRANSPARENT);
     	drawHandOffset(dc, 12.00, 60.00, hours, minutes, relative_hour_hand_length*width, relative_hour_hand_stroke*width);
@@ -348,82 +312,7 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 
 		return [r, g, b];
 	}
-
-	function drawGradient(start, end, dc){
-		var width = dc.getWidth();
-
-		var rincrement = (end[0].toFloat() - start[0].toFloat())/(width*2);
-		var gincrement = (end[1].toFloat()-start[1].toFloat())/(width*2);
-		var bincrement = (end[2].toFloat()-start[2].toFloat())/(width*2);
-
-		var r = start[0];
-		var g = start[1];
-		var b = start[2];
-
-		for(var i = 0; i < width*2; i++) {
-			var rstr = r.format("%X");
-			var gstr = g.format("%X");
-			var bstr = b.format("%X");
-
-			while(rstr.length() < 2) {
-				rstr = "0" + rstr;
-			}
-
-			while(gstr.length() < 2) {
-				gstr = "0" + gstr;
-			}
-
-			while(bstr.length() < 2) {
-				bstr = "0" + bstr;
-			}
-
-			dc.setColor((rstr + gstr + bstr).toLongWithBase(16), 0x000000);
-			dc.drawLine(0, i, i, 0);
-			r += rincrement;
-			g += gincrement;
-			b += bincrement;
-		}
-	}
-	
-	function drawBox(dc) {
-		var width = dc.getWidth();
-		if(RBD == 1) {
-			var x = centerOnRight(dc, time_size[0]);
-    		var y = dc.getWidth()/2 - (time_size[1])/2;
-			drawTimeBox(dc, x, y);
-		}
-
-		if(RBD == 2) {
-			var x = centerOnRight(dc, time_size[0]);
-    		var y = dc.getWidth()/2 - (time_size[1])/2;
-			drawStepBox(dc, x, y);
-		}
-
-		if(RBD == 3) {
-			var x = centerOnRight(dc, floors_size[0]);
-    		var y = dc.getWidth()/2 - (floors_size[1])/2;
-			drawFloorsBox(dc, x, y);
-		}
-
-		if(RBD == 4) {
-			var x = centerOnRight(dc, time_size[0]);
-    		var y = dc.getWidth()/2 - (time_size[1])/2;
-			drawCaloriesBox(dc, x, y);
-		}
-
-		if(RBD == 5) {
-			var x = centerOnRight(dc, time_size[0]);
-    		var y = dc.getWidth()/2 - (time_size[1])/2;
-			drawDistanceBox(dc, x, y);
-		}
-
-		if(RBD == 6) {
-			var x = centerOnRight(dc, battery_size[0]);
-    		var y = dc.getWidth()/2 - (battery_size[1])/2;
-			drawBatteryBox(dc, x, y);
-		}
-	}
-    
+   
     function drawTicks(dc, length, stroke, num) {
 		dc.setPenWidth(dc.getWidth() * relative_tick_stroke);
     	var tickAngle = 360/num;
@@ -438,39 +327,6 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     		var y2 = center + Math.round(Math.sin(angle) * (center));
     		
     		dc.drawLine(x1, y1, x2, y2);
-    	}
-    }
-
-	function drawTicksCircle(dc, size, stroke, num) {
-		dc.setPenWidth(dc.getWidth() * relative_tick_stroke);
-    	var tickAngle = 360/num;
-    	var center = dc.getWidth()/2;
-    	for(var i = 0; i < num; i++) {
-    		var angle = Math.toRadians(tickAngle * i);
-    		var x1 = center + Math.round(Math.cos(angle) * (center - size - 1)) - 1;
-    		var y1 = center + Math.round(Math.sin(angle) * (center - size - 1)) - 1;    		
-    		dc.fillEllipse(x1, y1, size, size);
-    	}
-	}
-
-	function drawTicksTriangle(dc, length, stroke, num) {
-		dc.setPenWidth(dc.getWidth() * relative_tick_stroke);
-    	var tickAngle = 360/num;
-    	var center = dc.getWidth()/2;
-    	for(var i = 0; i < num; i++) {
-    		var angle = Math.toRadians(tickAngle * i);
-			var offset = Math.toRadians(2);
-    		var x1 = center + Math.round(Math.cos(angle) * (center-length));
-    		var y1 = center + Math.round(Math.sin(angle) * (center-length));
-    		//2x^2 = 20
-    		//x=10^0.5
-    		var x2 = center + Math.round(Math.cos(angle - offset) * (center));
-    		var y2 = center + Math.round(Math.sin(angle - offset) * (center));
-
-			var x3 = center + Math.round(Math.cos(angle + offset) * (center));
-    		var y3 = center + Math.round(Math.sin(angle + offset) * (center));
-    		
-    		dc.fillPolygon([[x1, y1], [x2, y2], [x3, y3]]);
     	}
     }
 
@@ -545,63 +401,6 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     	dc.drawLine(center, center, x, y);
     }
 
-    function drawStatusBox(dc, x, y) {
-		var status_string = "";
-		var settings = System.getDeviceSettings();
-		var status = System.getSystemStats();
-
-		if(settings.phoneConnected) {
-			status_string += "K";
-		}
-
-		if(settings.alarmCount > 0) {
-			status_string += "H";
-		}
-
-		if (settings has :doNotDisturb) {
-			if(settings.doNotDisturb) {
-				status_string += "I";
-			}
-		}
-
-		if(settings.notificationCount > 0) {
-			status_string += "J";
-		}
-
-		if(status has :charging && status.charging) {
-			status_string += "A";
-		} else if(status.battery > 86) {
-			status_string += "G";
-		} else if(status.battery > 72) {
-			status_string += "F";
-		} else if(status.battery > 56) {
-			status_string += "E";
-		} else if(status.battery > 40) {
-			status_string += "D";
-		} else if(status.battery > 24) {
-			status_string += "C";
-		} else {
-			status_string += "B";
-		}
-
-		dc.setPenWidth(2);
-    	dc.setColor(box_color, Graphics.COLOR_WHITE);
-		if(showBoxes) {
-   			// dc.drawRoundedRectangle(x - status_box_size[0]/2, y, status_box_size[0], status_box_size[1], box_padding);
-		}
-    	
-		var boxText = new WatchUi.Text({
-            :text=>status_string,
-            :color=>text_color,
-            :font=>iconFont,
-            :locX =>x + text_padding[0],
-            :locY=>y,
-			:justification=>Graphics.TEXT_JUSTIFY_CENTER
-        });
-
-		boxText.draw(dc);
-    }
-
 	function drawDate(dc, x, y) {
 		var width = dc.getWidth();
 		var height = dc.getHeight();
@@ -612,103 +411,6 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 		drawTextBox(dc, dateString, x, y, dow_size[0], dow_size[1]);
     }
     
-    function drawTimeBox(dc, x, y) {
-		var width = dc.getWidth();
-    	var info = Gregorian.info(Time.now(), Time.FORMAT_LONG);
-    	var clockTime = System.getClockTime();
-		var hours = clockTime.hour.format("%02d").toNumber();
-		var hourString = hours;
-
-		if(!is24 && hours > 12) {
-			hours -= 12;
-			hourString = hours;
-		}
-
-		if(hours < 10) {
-			hourString = " " + hourString;
-		}
-
-		drawTextBox(dc, hourString + ":" + clockTime.min.format("%02d"), x, y, time_size[0], time_size[1]);
-    }
-	
-	function drawStepBox(dc, x, y) {
-		var width = dc.getWidth();
-		var steps = ActivityMonitor.getInfo().steps;
-		var stepString;
-		if(steps > 99999) {
-			stepString = "99+k";
-		} else {
-			stepString = (steps.toDouble()/1000).format("%.1f") + "k";
-		}
-		// System.out.println(steps);
-
-		drawTextBox(dc, stepString, x, y, time_size[0], time_size[1]);
-	}
-
-	function drawFloorsBox(dc, x, y) {
-		var width = dc.getWidth();
-		var floors;
-		var floorString;
-
-		if(ActivityMonitor.getInfo() has :floorsClimbed) {
-			floors = ActivityMonitor.getInfo().floorsClimbed;
-
-			if(floors > 999) {
-				floorString = "999+";
-			} else {
-				floorString = floors.toString();
-			}
-		} else {
-			floorString = "NA";
-		}
-
-		drawTextBox(dc, floorString, x, y, floors_size[0], floors_size[1]);
-	}
-
-	function drawCaloriesBox(dc, x, y) {
-		var width = dc.getWidth();
-		var calories;
-		calories = ActivityMonitor.getInfo().calories;
-
-		var calorieString;
-		if(calories > 99999) {
-			calorieString = "99+k";
-		} else {
-			calorieString = (calories.toDouble()/1000).format("%0.1f") + "k";
-		}
-
-		// System.out.println(steps);
-
-		drawTextBox(dc, calorieString, x, y, time_size[0], time_size[1]);
-	}
-
-	function drawDistanceBox(dc, x, y) {
-		var width = dc.getWidth();
-		var distance;
-		distance = ActivityMonitor.getInfo().distance/1000000;
-		System.println(distance);
-		if(!isDistanceMetric) {
-			distance *= .621371;
-		} 
-		var distanceString;
-		if(distance > 999) {
-			distanceString = "999+";
-		} else {
-			distanceString = (distance).format("%.1f");
-		}
-
-		drawTextBox(dc, distanceString, x, y, time_size[0], time_size[1]);
-	}
-
-	function drawBatteryBox(dc, x, y) {
-		var width = dc.getWidth();
-		var battery = System.getSystemStats().battery;
-
-		var batteryString = battery.format("%.0f");
-
-		drawTextBox(dc, batteryString, x, y, battery_size[0], battery_size[1]);
-	}
-
 	function drawTextBox(dc, text, x, y, width, height) {
 		dc.setPenWidth(2);
     	dc.setColor(box_color, Graphics.COLOR_WHITE);
@@ -719,55 +421,13 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 		var boxText = new WatchUi.Text({
             :text=>text,
             :color=>text_color,
-            :font=>mainFont,
+            :font=>Graphics.FONT_TINY,
             :locX =>x + text_padding[0],
             :locY=>y,
 			:justification=>Graphics.TEXT_JUSTIFY_LEFT
         });
 
 		boxText.draw(dc);
-	}
-
-    //Draws a text box with the time at a random point on the screen
-	//Used for AMOLED devices to prevent burn-in
-	function drawScreenSaver(dc) {
-			var clockTime = System.getClockTime();
-			var timeString = clockTime.hour + ":" + clockTime.min.format("%02d");
-			var hour = clockTime.hour;
-			var width = dc.getWidth();
-
-			if(!is24 && hour > 12) {
-				hour -= 12;
-				timeString = hour + ":" + clockTime.min.format("%02d");
-			}
-
-			if(hour < 10) {
-				timeString = "  " + timeString;
-			}
-
-			var pad = 150;
-			ssloc[0] += status_box_size[0] * xmult;
-			ssloc[1] += (status_box_size[1] + time_size[1]) * ymult;
-
-			if(ssloc[0] <= pad) {
-				ssloc[0] = pad;
-				xmult *= -1;
-			} else if(ssloc[0] >= width-pad) {
-				ssloc[0] = width-pad;
-				xmult *= -1;
-			}
-
-			if(ssloc[1] <= pad) {
-				ssloc[1] = pad;
-				ymult *= -1;
-			} else if(ssloc[1] >= width-pad) {
-				ssloc[1] = width-pad;
-				ymult *= -1;
-			}
-
-
-			drawStatusBox(dc, ssloc[0], ssloc[1]);
-			drawTextBox(dc, timeString, ssloc[0] - (time_size[0]/2), ssloc[1] - time_size[1], time_size[0], time_size[1]);
 	}
 
     // Called when this View is brought to the foreground. Restore
