@@ -10,10 +10,10 @@
         <param name="locY">dc.getHeight() * .5</param>
     </drawable>
 
-    <drawable id="Complication3" class="Complicated.ComplicationDrawable">
+    <!-- <drawable id="Complication3" class="Complicated.ComplicationDrawable">
         <param name="locX">dc.getWidth() / 2 </param>
         <param name="locY">dc.getHeight() * 0</param>
-    </drawable>
+    </drawable> -->
 
     <drawable id="Complication4" class="Complicated.ComplicationDrawable">
         <param name="locX">dc.getWidth() / 2 </param>

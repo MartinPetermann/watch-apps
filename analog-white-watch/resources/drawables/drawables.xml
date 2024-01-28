@@ -1,0 +1,45 @@
+<drawables>
+    <bitmap id="LauncherIcon" filename="launcher_icon.png" />
+    <!--
+        Import the SVGs and scale all the icons to 10% of the screen
+        All icons from freeicons.io
+    -->
+    <bitmap id="battery" filename="Europa.1.png" scaleX="32%" scaleY="32%" scaleRelativeTo="screen">      
+    </bitmap>
+    <bitmap id="steps" filename="Mainz.2.png" scaleX="32%" scaleY="32%" scaleRelativeTo="screen" dithering="none"> 
+    </bitmap>
+    <bitmap id="height" filename="Berg.png" scaleX="32%" scaleY="32%" scaleRelativeTo="screen" dithering="none"> 
+    </bitmap>     
+    <bitmap id="complication" filename="complication.svg" scaleX="20%" scaleY="20%" scaleRelativeTo="screen" dithering="none">
+        <palette>
+            <color>C0C0C0</color>
+            <color>808080</color>
+            <color>000000</color>
+        </palette>        
+    </bitmap>
+
+    <bitmap id="background" filename="x1.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
+    </bitmap>
+
+    <bitmap id="background1" filename="h1.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
+    </bitmap>  
+
+    <bitmap id="background2" filename="h2.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
+    </bitmap>  
+
+    <bitmap id="background3" filename="h3.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
+    </bitmap>  
+
+    <bitmap id="background4" filename="h4.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
+    </bitmap>  
+
+    <bitmap id="background5" filename="h5.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
+    </bitmap>  
+
+    <bitmap id="background6" filename="h6.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
+    </bitmap>  
+
+    <bitmap id="nice" filename="gray.4.png" scaleX="32%" scaleY="32%" scaleRelativeTo="screen" dithering="none">      
+    </bitmap>  
+
+</drawables>

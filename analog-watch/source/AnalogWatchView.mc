@@ -98,9 +98,9 @@ class SimpleAnalogView extends WatchUi.WatchFace {
         prop = Application.getApp().getProperty("Complication2");
         _complications[1].setModelUpdater(Complicated.getComplication(prop));
 
-        _complications[2] = View.findDrawableById("Complication3") as ComplicationDrawable;    
-        prop = Application.getApp().getProperty("Complication3");
-        _complications[2].setModelUpdater(Complicated.getComplication(prop));
+        // _complications[2] = View.findDrawableById("Complication3") as ComplicationDrawable;    
+        // prop = Application.getApp().getProperty("Complication3");
+        // _complications[2].setModelUpdater(Complicated.getComplication(prop));
 
         _complications[3] = View.findDrawableById("Complication4") as ComplicationDrawable;    
         prop = Application.getApp().getProperty("Complication4");
@@ -196,7 +196,7 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 		}
 
 
-    	drawDate(dc, height/2 - 44, width/12);	
+    	drawDate(dc, height/2, width/12);	
     	
     	dc.setColor(hour_min_hand_color, Graphics.COLOR_TRANSPARENT);
     	drawHandOffset(dc, 12.00, 60.00, hours, minutes, relative_hour_hand_length*width, relative_hour_hand_stroke*width);
@@ -411,20 +411,14 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 		drawTextBox(dc, dateString, x, y, dow_size[0], dow_size[1]);
     }
     
-	function drawTextBox(dc, text, x, y, width, height) {
-		dc.setPenWidth(2);
-    	dc.setColor(box_color, Graphics.COLOR_WHITE);
-		if(showBoxes) {
-   			dc.drawRoundedRectangle(x, y, width, height, box_padding);
-		}
-    	
+	function drawTextBox(dc, text, x, y, width, height) {   	
 		var boxText = new WatchUi.Text({
             :text=>text,
             :color=>text_color,
             :font=>Graphics.FONT_TINY,
             :locX =>x + text_padding[0],
             :locY=>y,
-			:justification=>Graphics.TEXT_JUSTIFY_LEFT
+			:justification=>Graphics.TEXT_JUSTIFY_CENTER
         });
 
 		boxText.draw(dc);
