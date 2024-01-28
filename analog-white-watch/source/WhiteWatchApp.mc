@@ -1,7 +1,7 @@
 import Toybox.Application;
 import Toybox.WatchUi;
 
-class AnalogWhiteWatchApp extends Application.AppBase {
+class WhiteWatchApp extends Application.AppBase {
 
     function initialize() {
         AppBase.initialize();
