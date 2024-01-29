@@ -46,9 +46,9 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     var relative_hour_hand_length = .20;
     var relative_min_hand_length = .40;
     var relative_sec_hand_length = .42;
-    var relative_hour_hand_stroke = .013;
-    var relative_min_hand_stroke = .013;
-    var relative_sec_hand_stroke = .01;
+    var relative_hour_hand_stroke = .026;
+    var relative_min_hand_stroke = .026;
+    var relative_sec_hand_stroke = .015;
 
 	var relative_padding = .03;
     var relative_padding2 = .01;
@@ -188,15 +188,15 @@ class SimpleAnalogView extends WatchUi.WatchFace {
            	
 
 		dc.setColor(foreground_color, Graphics.COLOR_TRANSPARENT);
-		if(show_min_ticks) {
-			drawTicks(dc, relative_hour_tick_length*width, relative_hour_tick_stroke*width, 12);
-			drawTicks(dc, relative_min_tick_length*width, relative_min_tick_stroke*width, 60);
-		} else {
-			drawTicks(dc, relative_min_tick_length*width, relative_min_tick_stroke*width, 12);
-		}
+		// if(show_min_ticks) {
+		// 	drawTicks(dc, relative_hour_tick_length*width, relative_hour_tick_stroke*width, 12);
+		// 	drawTicks(dc, relative_min_tick_length*width, relative_min_tick_stroke*width, 60);
+		// } else {
+		// 	drawTicks(dc, relative_min_tick_length*width, relative_min_tick_stroke*width, 12);
+		// }
 
 
-    	drawDate(dc, height/2, width/12);	
+    	drawDate(dc, height/2, width/10);	
     	
     	dc.setColor(hour_min_hand_color, Graphics.COLOR_TRANSPARENT);
     	drawHandOffset(dc, 12.00, 60.00, hours, minutes, relative_hour_hand_length*width, relative_hour_hand_stroke*width);

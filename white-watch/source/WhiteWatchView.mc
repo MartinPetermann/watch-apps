@@ -44,9 +44,9 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     var relative_hour_hand_length = .20;
     var relative_min_hand_length = .40;
     var relative_sec_hand_length = .42;
-    var relative_hour_hand_stroke = .013;
-    var relative_min_hand_stroke = .013;
-    var relative_sec_hand_stroke = .01;
+    var relative_hour_hand_stroke = .026;
+    var relative_min_hand_stroke = .026;
+    var relative_sec_hand_stroke = .015;
 
 	var relative_padding = .03;
     var relative_padding2 = .01;
@@ -166,12 +166,13 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 		}
 		var total_colors = 14;
 
-		foreground_color = getColor(0);
-		box_color = getColor(0);
+		foreground_color = getColor(Application.getApp().getProperty("ForegroundColor"));
+		box_color = getColor(Application.getApp().getProperty("BoxColor"));
 		second_hand_color = getColor(Application.getApp().getProperty("SecondHandColor"));
-		hour_min_hand_color = getColor(0);
-		text_color = getColor(0);
+		hour_min_hand_color = getColor(Application.getApp().getProperty("HourMinHandColor"));
+		text_color = getColor(Application.getApp().getProperty("TextColor"));
 		show_min_ticks = Application.getApp().getProperty("ShowMinTicks");
+
 	}
 
 	function drawBackground(dc) {
@@ -184,15 +185,15 @@ class SimpleAnalogView extends WatchUi.WatchFace {
            	
 
 		dc.setColor(foreground_color, Graphics.COLOR_TRANSPARENT);
-		if(show_min_ticks) {
-			drawTicks(dc, relative_hour_tick_length*width, relative_hour_tick_stroke*width, 12);
-			drawTicks(dc, relative_min_tick_length*width, relative_min_tick_stroke*width, 60);
-		} else {
-			drawTicks(dc, relative_min_tick_length*width, relative_min_tick_stroke*width, 12);
-		}
+		// if(show_min_ticks) {
+		// 	drawTicks(dc, relative_hour_tick_length*width, relative_hour_tick_stroke*width, 12);
+		// 	drawTicks(dc, relative_min_tick_length*width, relative_min_tick_stroke*width, 60);
+		// } else {
+		// 	drawTicks(dc, relative_min_tick_length*width, relative_min_tick_stroke*width, 12);
+		// }
 
 
-    	drawDate(dc, height/2, width/12);	
+    	drawDate(dc, height/2, width/10);	
     	
     	dc.setColor(hour_min_hand_color, Graphics.COLOR_TRANSPARENT);
     	drawHandOffset(dc, 12.00, 60.00, hours, minutes, relative_hour_hand_length*width, relative_hour_hand_stroke*width);
