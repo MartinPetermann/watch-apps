@@ -40,7 +40,10 @@
     </bitmap>  
 
     <bitmap id="background7" filename="h7.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
-    </bitmap> 
+    </bitmap>
+
+    <bitmap id="background9" filename="h9.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
+    </bitmap>
 
     <bitmap id="nice" filename="gray.4.png" scaleX="32%" scaleY="32%" scaleRelativeTo="screen" dithering="none">      
     </bitmap>  
