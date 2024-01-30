@@ -67,14 +67,21 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 	var image as BitmapType;
 	var _complications as Array<ComplicationDrawable>;
 
+	var width_screen;
+	var height_screen;
+
     function initialize() {
         WatchFace.initialize();
 		image = Application.loadResource( Rez.Drawables.background4 ) as BitmapResource;
 		_complications = new Array<ComplicationDrawable>[4];
+
     }
 
     // Load your resources here
     function onLayout(dc) {
+
+		width_screen = dc.getWidth();
+		height_screen = dc.getHeight();
 
 			//increase the size of resources so they are visible on the Venu
 		mainFont = WatchUi.loadResource(Rez.Fonts.BigFont);
@@ -121,13 +128,13 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 
 		drawBackground(dc);			
 
-		if(partialUpdates && ((!lowMemDevice && !lowPower) || (!lowMemDevice && lowPower))) {
-			dc.setColor(second_hand_color, Graphics.COLOR_TRANSPARENT);
-			drawSecondHandClip(dc, 60, seconds, relative_sec_hand_length*width, relative_sec_hand_stroke*width);
-		} else if(lowMemDevice && !lowPower) {
-			dc.setColor(second_hand_color, Graphics.COLOR_TRANSPARENT);
-			drawHand(dc, 60, seconds, relative_sec_hand_length*width, relative_sec_hand_stroke*width);
-		}
+		// if(partialUpdates && ((!lowMemDevice && !lowPower) || (!lowMemDevice && lowPower))) {
+		// 	dc.setColor(second_hand_color, Graphics.COLOR_TRANSPARENT);
+		// 	drawSecondHandClip(dc, 60, seconds, relative_sec_hand_length*width, relative_sec_hand_stroke*width);
+		// } else if(lowMemDevice && !lowPower) {
+		// 	dc.setColor(second_hand_color, Graphics.COLOR_TRANSPARENT);
+		// 	drawHand(dc, 60, seconds, relative_sec_hand_length*width, relative_sec_hand_stroke*width);
+		// }
 
 		dc.setColor(box_color, Graphics.COLOR_TRANSPARENT);
 		dc.fillCircle(dc.getWidth()/2-1, dc.getHeight()/2-1, relative_center_radius*width);
@@ -199,9 +206,11 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     	drawDate(dc, height/2, width/10);	
     	
     	dc.setColor(hour_min_hand_color, Graphics.COLOR_TRANSPARENT);
-    	drawHandOffset(dc, 12.00, 60.00, hours, minutes, relative_hour_hand_length*width, relative_hour_hand_stroke*width);
+    	// drawHandOffset(dc, 12.00, 60.00, hours, minutes, relative_hour_hand_length*width, relative_hour_hand_stroke*width);
 
-    	drawHand(dc, 60, minutes, relative_min_hand_length*width, relative_min_hand_stroke*width);
+    	// drawHand(dc, 60, minutes, relative_min_hand_length*width, relative_min_hand_stroke*width);
+		drawHands(dc, clockTime.hour, clockTime.min, clockTime.sec, Graphics.COLOR_WHITE, Graphics.COLOR_WHITE, Graphics.COLOR_RED);
+		//Graphics.COLOR_LT_GRAY, Graphics.COLOR_LT_GRAY, Graphics.COLOR_LT_GRAY);
 	}
 
 	//These functions center an object between the end of the hour tick and the edge of the center circle
@@ -330,7 +339,7 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     	}
     }
 
-    function drawHand(dc, num, time, length, stroke) {
+    function drawHandOld(dc, num, time, length, stroke) {
     	var angle = Math.toRadians((360/num) * time) - Math.PI/2;
     	
     	var center = dc.getWidth()/2;
@@ -343,6 +352,87 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     	dc.drawLine(center, center, x, y);
     	
     }
+
+    //! Draw the watch hand
+    //! @param dc Device Context to Draw
+    //! @param angle Angle to draw the watch hand
+    //! @param length Length of the watch hand
+    //! @param width Width of the watch hand
+    function drawHand(dc, angle, length, width, overheadLine, drawCircleOnTop)
+    {
+        // Map out the coordinates of the watch hand
+        var coords = [ 
+            [-(width/2), 0 + overheadLine],
+            [-(width/2), -length],
+            [width/2, -length],
+            [width/2, 0 + overheadLine]
+        ];
+        var result = new [4];
+        var centerX = width_screen / 2;
+        var centerY = height_screen / 2;
+        var cos = Math.cos(angle);
+        var sin = Math.sin(angle);
+
+        // Transform the coordinates
+        for (var i = 0; i < 4; i += 1)
+        {
+            var x = (coords[i][0] * cos) - (coords[i][1] * sin);
+            var y = (coords[i][0] * sin) + (coords[i][1] * cos);
+            result[i] = [ centerX + x, centerY + y];
+            if(drawCircleOnTop)
+            {
+                if(i == 0)
+                {
+                    var xCircle = ((coords[i][0]+(width/2)) * cos) - ((coords[i][1]) * sin);
+                    var yCircle = ((coords[i][0]+(width/2)) * sin) + ((coords[i][1]) * cos);
+                    dc.fillCircle(centerX + xCircle, centerY + yCircle, (width/2)-1);
+                }
+                else if(i == 1)
+                {
+                    var xCircle = ((coords[i][0]+(width/2)) * cos) - ((coords[i][1]) * sin);
+                    var yCircle = ((coords[i][0]+(width/2)) * sin) + ((coords[i][1]) * cos);
+                    dc.fillCircle(centerX + xCircle, centerY + yCircle, (width/2)-1);
+                }
+            }
+        }
+
+        // Draw the polygon
+        dc.fillPolygon(result);
+        //dc.fillPolygon(result);
+    }
+
+    function drawHands(dc, clock_hour, clock_min, clock_sec, hour_color, min_color, sec_color)
+    {
+        var hour, min, sec;
+
+        // Draw the hour. Convert it to minutes and
+        // compute the angle.
+        hour = ( ( ( clock_hour % 12 ) * 60 ) + clock_min );
+        hour = hour / (12 * 60.0);
+        hour = hour * Math.PI * 2;
+        dc.setColor(hour_color, Graphics.COLOR_TRANSPARENT);
+        drawHand(dc, hour, 70, 6, 15, true);
+
+        // Draw the minute
+        min = ( clock_min / 60.0) * Math.PI * 2;
+        dc.setColor(min_color, Graphics.COLOR_TRANSPARENT);
+        drawHand(dc, min, 100, 4, 15, true);
+
+        // Draw the seconds
+        if(lowPower == false){
+            sec = ( clock_sec / 60.0) *  Math.PI * 2;
+            dc.setColor(sec_color, Graphics.COLOR_TRANSPARENT);
+            drawHand(dc, sec, 105, 2, 15, true);
+        }
+
+        // Draw the inner circle
+        dc.setColor(Graphics.COLOR_LT_GRAY, background_color_1);
+        dc.fillCircle(width_screen/2, height_screen/2, 6);
+        dc.setColor(background_color_1,background_color_1);
+        dc.drawCircle(width_screen/2, height_screen/2, 6);
+    }
+
+
     
     function drawSecondHandClip(dc, num, time, length, stroke) {
 		dc.drawBitmap(0, 0, offScreenBuffer);
