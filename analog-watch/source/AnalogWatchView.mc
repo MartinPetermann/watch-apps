@@ -17,24 +17,17 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 	var showTicks;
 	var mainFont;
 	var iconFont;
-	var needsProtection = true;
 	var lowMemDevice = true;
 	var RBD = 0;
-	var version;
 	var showBoxes;
 	var background_color_1;
 	var background_color_2;
-	var background_image;
-	var use_background_image;
 	var foreground_color;
 	var box_color;
 	var second_hand_color;
 	var hour_min_hand_color;
 	var text_color;
 	var show_min_ticks;
-	var ssloc = [100, 100];
-	var xmult = 1.2;
-	var ymult = 1.1;
 	
     //relative to width percentage
 	var relative_tick_stroke = .01;
@@ -42,21 +35,20 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     var relative_min_tick_length = .04;
     var relative_hour_tick_stroke = .04;
     var relative_min_tick_stroke = .04;
-    
-    var relative_hour_hand_length = .20;
-    var relative_min_hand_length = .40;
-    var relative_sec_hand_length = .42;
-    var relative_hour_hand_stroke = .026;
-    var relative_min_hand_stroke = .026;
-    var relative_sec_hand_stroke = .015;
 
+    var hour_hand_length = 70;
+    var min_hand_length = 100;
+    var sec_hand_length = 90;
+    var hour_hand_stroke = 6;
+    var min_hand_stroke = 4;
+    var sec_hand_stroke = 2;
+    
 	var relative_padding = .03;
     var relative_padding2 = .01;
     
     var relative_center_radius = .025;
 
 	var text_padding = [1, 2];
-	var box_padding = 2;
 	var dow_size = [44, 19];
 	var date_size = [24, 19];
 	var time_size = [48, 19];
@@ -118,10 +110,6 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     function onUpdate(dc) {
 		View.onUpdate(dc);	
 
-		var clockTime = System.getClockTime();
-		var hours = clockTime.hour;
-		var minutes = clockTime.min;
-		var seconds = clockTime.sec;
 		var width = dc.getWidth();
 
 		updateValues(dc.getWidth());
@@ -133,7 +121,7 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 		// 	drawSecondHandClip(dc, 60, seconds, relative_sec_hand_length*width, relative_sec_hand_stroke*width);
 		// } else if(lowMemDevice && !lowPower) {
 		// 	dc.setColor(second_hand_color, Graphics.COLOR_TRANSPARENT);
-		// 	drawHand(dc, 60, seconds, relative_sec_hand_length*width, relative_sec_hand_stroke*width);
+		// 	drawHandOld(dc, 60, seconds, relative_sec_hand_length*width, relative_sec_hand_stroke*width);
 		// }
 
 		dc.setColor(box_color, Graphics.COLOR_TRANSPARENT);
@@ -163,17 +151,6 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 		showTicks = Application.getApp().getProperty("ShowTicks");
 		RBD = Application.getApp().getProperty("RightBoxDisplay1");
 		showBoxes = Application.getApp().getProperty("ShowBoxes");
-		
-		if(!showTicks) {
-			relative_sec_hand_length = .46;
-			relative_hour_hand_length = .23;
-			relative_min_hand_length = .46;
-		} else {
-			relative_hour_hand_length = .20;
-   			relative_min_hand_length = .40;
-			relative_sec_hand_length = .42;
-		}
-		var total_colors = 14;
 
 		background_color_1 = getColor(Application.getApp().getProperty("BackgroundColor"));
 		background_color_2 = getColor(Application.getApp().getProperty("BackgroundColor1"));
@@ -187,20 +164,17 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 
 	function drawBackground(dc) {
 		var clockTime = System.getClockTime();
-        var hours = clockTime.hour;
-        var minutes = clockTime.min;
-        var seconds = clockTime.sec;
         var width = dc.getWidth();
         var height = dc.getHeight();
            	
 
 		dc.setColor(foreground_color, Graphics.COLOR_TRANSPARENT);
-		// if(show_min_ticks) {
-		// 	drawTicks(dc, relative_hour_tick_length*width, relative_hour_tick_stroke*width, 12);
-		// 	drawTicks(dc, relative_min_tick_length*width, relative_min_tick_stroke*width, 60);
-		// } else {
-		// 	drawTicks(dc, relative_min_tick_length*width, relative_min_tick_stroke*width, 12);
-		// }
+		if(show_min_ticks) {
+			drawTicks(dc, relative_hour_tick_length*width, relative_hour_tick_stroke*width, 12);
+			drawTicks(dc, relative_min_tick_length*width, relative_min_tick_stroke*width, 60);
+		} else {
+			drawTicks(dc, relative_min_tick_length*width, relative_min_tick_stroke*width, 12);
+		}
 
 
     	drawDate(dc, height/2, width/10);	
@@ -209,7 +183,7 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     	// drawHandOffset(dc, 12.00, 60.00, hours, minutes, relative_hour_hand_length*width, relative_hour_hand_stroke*width);
 
     	// drawHand(dc, 60, minutes, relative_min_hand_length*width, relative_min_hand_stroke*width);
-		drawHands(dc, clockTime.hour, clockTime.min, clockTime.sec, Graphics.COLOR_WHITE, Graphics.COLOR_WHITE, Graphics.COLOR_RED);
+		drawHands(dc, clockTime.hour, clockTime.min, clockTime.sec, Graphics.COLOR_WHITE, Graphics.COLOR_WHITE, Graphics.COLOR_DK_RED);
 		//Graphics.COLOR_LT_GRAY, Graphics.COLOR_LT_GRAY, Graphics.COLOR_LT_GRAY);
 	}
 
@@ -411,18 +385,18 @@ class SimpleAnalogView extends WatchUi.WatchFace {
         hour = hour / (12 * 60.0);
         hour = hour * Math.PI * 2;
         dc.setColor(hour_color, Graphics.COLOR_TRANSPARENT);
-        drawHand(dc, hour, 70, 6, 15, true);
+        drawHand(dc, hour, hour_hand_length, hour_hand_stroke, 25, false);
 
         // Draw the minute
         min = ( clock_min / 60.0) * Math.PI * 2;
         dc.setColor(min_color, Graphics.COLOR_TRANSPARENT);
-        drawHand(dc, min, 100, 4, 15, true);
+        drawHand(dc, min, min_hand_length, min_hand_stroke, 25, false);
 
         // Draw the seconds
         if(lowPower == false){
             sec = ( clock_sec / 60.0) *  Math.PI * 2;
             dc.setColor(sec_color, Graphics.COLOR_TRANSPARENT);
-            drawHand(dc, sec, 105, 2, 15, true);
+            drawHand(dc, sec, sec_hand_length, sec_hand_stroke, 35, false);
         }
 
         // Draw the inner circle
@@ -447,7 +421,6 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     	var x = center + cosval;
     	var y = center + sinval;
     	var width = dc.getWidth();
-    	var height = dc.getHeight();
     	var width2 = (center-x).abs();
     	var height2 = (center-y).abs();
     	var padding = width * relative_padding;
@@ -492,8 +465,6 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     }
 
 	function drawDate(dc, x, y) {
-		var width = dc.getWidth();
-		var height = dc.getHeight();
 		
 		var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
 		var dateString = Lang.format("$1$.$2$.$3$", [info.day, info.month.format("%02d"), info.year % 100]);

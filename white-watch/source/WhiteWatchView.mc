@@ -9,38 +9,24 @@ import Complicated;
 
 class SimpleAnalogView extends WatchUi.WatchFace {
     var lowPower = false;
-	var offScreenBuffer;
     var is24;
 	var isDistanceMetric;
-    var clip;
-	var partialUpdates = false;
 	var showTicks;
 	var mainFont;
 	var iconFont;
-	var needsProtection = true;
-	var lowMemDevice = true;
 	var RBD = 0;
-	var version;
 	var showBoxes;
 	var background_color_1;
-	var background_image;
-	var use_background_image;
 	var foreground_color;
 	var box_color;
 	var second_hand_color;
 	var hour_min_hand_color;
 	var text_color;
 	var show_min_ticks;
-	var ssloc = [100, 100];
-	var xmult = 1.2;
-	var ymult = 1.1;
 	
     //relative to width percentage
 	var relative_tick_stroke = .01;
     var relative_hour_tick_length = .08;
-    var relative_min_tick_length = .04;
-    var relative_hour_tick_stroke = .04;
-    var relative_min_tick_stroke = .04;
     
     var hour_hand_length = 93;
     var min_hand_length = 120;
@@ -48,14 +34,10 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     var hour_hand_stroke = 12;
     var min_hand_stroke = 8;
     var sec_hand_stroke = 3;
-
-	var relative_padding = .03;
-    var relative_padding2 = .01;
     
     var relative_center_radius = .025;
 
 	var text_padding = [1, 2];
-	var box_padding = 2;
 	var dow_size = [44, 19];
 	var date_size = [24, 19];
 	var time_size = [48, 19];
@@ -165,7 +147,7 @@ class SimpleAnalogView extends WatchUi.WatchFace {
            	
 
 		dc.setColor(foreground_color, Graphics.COLOR_TRANSPARENT);
-    	drawDate(dc, height/2, width/10);	  	
+    	drawDate(dc, height/2, width/8);	  	
     	dc.setColor(hour_min_hand_color, Graphics.COLOR_TRANSPARENT);
 		drawHands(dc, clockTime.hour, clockTime.min, clockTime.sec, Graphics.COLOR_BLACK, Graphics.COLOR_BLACK, Graphics.COLOR_DK_RED);
 	}
@@ -316,6 +298,8 @@ class SimpleAnalogView extends WatchUi.WatchFace {
         var cos = Math.cos(angle);
         var sin = Math.sin(angle);
 
+
+
         // Transform the coordinates
         for (var i = 0; i < 4; i += 1)
         {
@@ -324,13 +308,7 @@ class SimpleAnalogView extends WatchUi.WatchFace {
             result[i] = [ centerX + x, centerY + y];
             if(drawCircleOnTop)
             {
-                if(i == 0)
-                {
-                    var xCircle = ((coords[i][0]+(width/2)) * cos) - ((coords[i][1]) * sin);
-                    var yCircle = ((coords[i][0]+(width/2)) * sin) + ((coords[i][1]) * cos);
-                    //dc.fillCircle(centerX + xCircle, centerY + yCircle, 4.5 * width);
-                }
-                else if(i == 1)
+                if(i == 1)
                 {
                     var xCircle = ((coords[i][0]+(width/2)) * cos) - ((coords[i][1]) * sin);
                     var yCircle = ((coords[i][0]+(width/2)) * sin) + ((coords[i][1]) * cos);
