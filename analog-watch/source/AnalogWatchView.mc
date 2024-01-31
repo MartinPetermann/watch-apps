@@ -71,6 +71,7 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 
     // Load your resources here
     function onLayout(dc) {
+        dc.setAntiAlias(true);
 
 		width_screen = dc.getWidth();
 		height_screen = dc.getHeight();
@@ -108,6 +109,8 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 
     // Update the view
     function onUpdate(dc) {
+		dc.setAntiAlias(true);
+
 		View.onUpdate(dc);	
 
 		var width = dc.getWidth();
@@ -372,7 +375,6 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 
         // Draw the polygon
         dc.fillPolygon(result);
-        //dc.fillPolygon(result);
     }
 
     function drawHands(dc, clock_hour, clock_min, clock_sec, hour_color, min_color, sec_color)

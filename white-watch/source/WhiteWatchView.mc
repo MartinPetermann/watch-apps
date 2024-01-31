@@ -59,6 +59,8 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 
     // Load your resources here
     function onLayout(dc) {
+		dc.setAntiAlias(true);
+
 		width_screen = dc.getWidth();
 		height_screen = dc.getHeight();
 
@@ -95,6 +97,8 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 
     // Update the view
     function onUpdate(dc) {
+		dc.setAntiAlias(true);
+
 		View.onUpdate(dc);	
 		var width = dc.getWidth();
 
