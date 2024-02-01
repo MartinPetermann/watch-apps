@@ -24,7 +24,7 @@ module Complicated {
         //! Update the model 
         public function updateModel() as Complicated.Model {
             var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-            var dateString = Lang.format("$1$.$2$.$3$", [info.day, info.month.format("%02d"), info.year % 100]);
+            var dateString = Lang.format("$1$.$2$.$3$", [info.day.format("%02d"), info.month.format("%02d"), info.year % 100]);
             return new StringModel(dateString);
         }
     }

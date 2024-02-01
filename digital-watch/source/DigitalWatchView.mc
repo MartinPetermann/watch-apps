@@ -68,13 +68,13 @@ class DigitalWatchView extends WatchUi.WatchFace {
             var clockTime = System.getClockTime();
             var hours = clockTime.hour;
 
-            timeString = Lang.format(timeFormat, [hours, clockTime.min.format("%02d"), clockTime.sec.format("%02d")]);
+            timeString = Lang.format(timeFormat, [hours.format("%02d"), clockTime.min.format("%02d"), clockTime.sec.format("%02d")]);
         } else {
             var timeFormat = "$1$:$2$";
             var clockTime = System.getClockTime();
             var hours = clockTime.hour;
 
-            timeString = Lang.format(timeFormat, [hours, clockTime.min.format("%02d")]);
+            timeString = Lang.format(timeFormat, [hours.format("%02d"), clockTime.min.format("%02d")]);
         }
 
         // Update the view

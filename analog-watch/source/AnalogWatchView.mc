@@ -469,7 +469,7 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 	function drawDate(dc, x, y) {
 		
 		var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-		var dateString = Lang.format("$1$.$2$.$3$", [info.day, info.month.format("%02d"), info.year % 100]);
+		var dateString = Lang.format("$1$.$2$.$3$", [info.day.format("%02d"), info.month.format("%02d"), info.year % 100]);
 
 		drawTextBox(dc, dateString, x, y, dow_size[0], dow_size[1]);
     }

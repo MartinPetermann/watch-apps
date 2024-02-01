@@ -106,8 +106,8 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 
 		drawBackground(dc);			
 
-		dc.setColor(box_color, Graphics.COLOR_TRANSPARENT);
-		dc.fillCircle(dc.getWidth()/2-1, dc.getHeight()/2-1, relative_center_radius*width);
+		// dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
+		// dc.fillCircle(dc.getWidth()/2-1, dc.getHeight()/2-1, relative_center_radius*width);
     }
     
 	//use this to update values controlled by settings
@@ -154,23 +154,6 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     	drawDate(dc, height/2, width/8);	  	
     	dc.setColor(hour_min_hand_color, Graphics.COLOR_TRANSPARENT);
 		drawHands(dc, clockTime.hour, clockTime.min, clockTime.sec, Graphics.COLOR_BLACK, Graphics.COLOR_BLACK, Graphics.COLOR_DK_RED);
-	}
-
-	//These functions center an object between the end of the hour tick and the edge of the center circle
-	function centerOnLeft(dc, size) {
-		var width = dc.getWidth();
-		if(showTicks) {
-			return relative_hour_tick_length * width + ((((relative_hour_tick_length * width) - (width/2 - (relative_center_radius * width)))/2).abs() - size/2);
-		}
-		return ((((width/2 - (relative_center_radius * width)))/2).abs() - size/2);		
-	}
-
-	function centerOnRight(dc, size) {
-		var width = dc.getWidth();
-		if(showTicks) {
-			return width - relative_hour_tick_length * width - ((((width - relative_hour_tick_length * width) - (width/2 + (relative_center_radius * width)))/2).abs() + size/2);
-		}
-		return width - ((((width) - (width/2 + (relative_center_radius * width)))/2).abs() + size/2);
 	}
 
 	//takes a number from settings and converts it to the assosciated color
@@ -265,23 +248,6 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 		return [r, g, b];
 	}
    
-    function drawTicks(dc, length, stroke, num) {
-		dc.setPenWidth(dc.getWidth() * relative_tick_stroke);
-    	var tickAngle = 360/num;
-    	var center = dc.getWidth()/2;
-    	for(var i = 0; i < num; i++) {
-    		var angle = Math.toRadians(tickAngle * i);
-    		var x1 = center + Math.round(Math.cos(angle) * (center-length));
-    		var y1 = center + Math.round(Math.sin(angle) * (center-length));
-    		//2x^2 = 20
-    		//x=10^0.5
-    		var x2 = center + Math.round(Math.cos(angle) * (center));
-    		var y2 = center + Math.round(Math.sin(angle) * (center));
-    		
-    		dc.drawLine(x1, y1, x2, y2);
-    	}
-    }
-
     //! Draw the watch hand
     //! @param dc Device Context to Draw
     //! @param angle Angle to draw the watch hand
@@ -348,35 +314,12 @@ class SimpleAnalogView extends WatchUi.WatchFace {
             dc.setColor(sec_color, Graphics.COLOR_TRANSPARENT);
             drawHand(dc, sec, sec_hand_length, sec_hand_stroke, 35, true);
         }
-
-        // Draw the inner circle
-        dc.setColor(Graphics.COLOR_LT_GRAY, background_color_1);
-        dc.fillCircle(width_screen/2, height_screen/2, 6);
-        dc.setColor(background_color_1,background_color_1);
-        dc.drawCircle(width_screen/2, height_screen/2, 6);
-    }
-    
-	//Draws a hand with an offset for a seperate time set (eg. hour hand)
-    function drawHandOffset(dc, num, offsetNum, time, offsetTime, length, stroke) {
-    	var angle = Math.toRadians((360/num) * time ) - Math.PI/2;
-    	var section = 360.00/num/offsetNum;
-    	
-    	angle += Math.toRadians(section * offsetTime);
-    	
-    	var center = dc.getWidth()/2;
-    	
-    	dc.setPenWidth(stroke);
-    	
-    	var x = center + Math.round(Math.cos(angle) * length);
-    	var y = center + Math.round(Math.sin(angle) * length);
-    	
-    	dc.drawLine(center, center, x, y);
     }
 
 	function drawDate(dc, x, y) {
 		
 		var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-		var dateString = Lang.format("$1$.$2$.$3$", [info.day, info.month.format("%02d"), info.year % 100]);
+		var dateString = Lang.format("$1$.$2$.$3$", [info.day.format("%02d"), info.month.format("%02d"), info.year % 100]);
 
 		drawTextBox(dc, dateString, x, y, dow_size[0], dow_size[1]);
     }
