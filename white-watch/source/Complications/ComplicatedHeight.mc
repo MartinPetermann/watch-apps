@@ -25,7 +25,7 @@ module Complicated {
         public function updateModel() as Complicated.Model {
             var height = Toybox.Activity.getActivityInfo().altitude;
 
-            var output = "ALT.\n" + height.format("%d");
+            var output = "ELEV.\n" + height.format("%d");
 
             if (Toybox.System.getDeviceSettings().elevationUnits == Toybox.System.UNIT_METRIC) {
                 output = output + " m";

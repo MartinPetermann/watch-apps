@@ -24,17 +24,29 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 	var text_color;
 	var show_min_ticks;
 	
-    //relative to width percentage
-	var relative_tick_stroke = .01;
-    var relative_hour_tick_length = .08;
-    
-    var hour_hand_length = 93;
-    var min_hand_length = 120;
-    var sec_hand_length = 88;
-    var hour_hand_stroke = 12;
-    var min_hand_stroke = 8;
-    var sec_hand_stroke = 3;
-    
+	
+
+    //similar values like on https://codepen.io/jobe451/pen/rNWrqPw
+	// 0.75 chosen by trying out
+	var relative_length = 0.75;
+
+    var hour_hand_length = 32/relative_length*(260/100);
+    var min_hand_length = 46/relative_length*(260/100);
+    var sec_hand_length = 31.2/relative_length*(260/100);
+
+    var hour_hand_stroke = 12/relative_length*(260/100);
+    var min_hand_stroke = 12/relative_length*(260/100);
+    var sec_hand_stroke = 16.5/relative_length*(260/100);
+
+	
+    var hour_hand_width = 5.8/relative_length*(260/100);
+    var min_hand_width = 4.4/relative_length*(260/100);
+    var sec_hand_width = 1.4/relative_length*(260/100);
+
+	// orig value is double in size
+	var sec_hand_diam = 5.25/relative_length*(260/100);
+
+
     var relative_center_radius = .025;
 
 	var text_padding = [1, 2];
@@ -282,7 +294,7 @@ class SimpleAnalogView extends WatchUi.WatchFace {
                 {
                     var xCircle = ((coords[i][0]+(width/2)) * cos) - ((coords[i][1]) * sin);
                     var yCircle = ((coords[i][0]+(width/2)) * sin) + ((coords[i][1]) * cos);
-                    dc.fillCircle(centerX + xCircle, centerY + yCircle, 4.5 * width);
+                    dc.fillCircle(centerX + xCircle, centerY + yCircle, sec_hand_diam);
                 }
             }
         }
@@ -301,18 +313,18 @@ class SimpleAnalogView extends WatchUi.WatchFace {
         hour = hour / (12 * 60.0);
         hour = hour * Math.PI * 2;
         dc.setColor(hour_color, Graphics.COLOR_TRANSPARENT);
-        drawHand(dc, hour, hour_hand_length, hour_hand_stroke, 25, false);
+        drawHand(dc, hour, hour_hand_length, hour_hand_width, hour_hand_stroke, false);
 
         // Draw the minute
         min = ( clock_min / 60.0) * Math.PI * 2;
         dc.setColor(min_color, Graphics.COLOR_TRANSPARENT);
-        drawHand(dc, min, min_hand_length, min_hand_stroke, 25, false);
+        drawHand(dc, min, min_hand_length, min_hand_width, min_hand_stroke, false);
 
         // Draw the seconds
         if(lowPower == false){
             sec = ( clock_sec / 60.0) *  Math.PI * 2;
             dc.setColor(sec_color, Graphics.COLOR_TRANSPARENT);
-            drawHand(dc, sec, sec_hand_length, sec_hand_stroke, 35, true);
+            drawHand(dc, sec, sec_hand_length, sec_hand_width, sec_hand_stroke, true);
         }
     }
 
@@ -320,7 +332,7 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 		
 		var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
 		var dateString = Lang.format("$1$.$2$.$3$", [info.day.format("%02d"), info.month.format("%02d"), info.year % 100]);
-
+		// var dateString = Lang.format("$1$.$2$", [dc.getWidth(), dc.getHeight()]);
 		drawTextBox(dc, dateString, x, y, dow_size[0], dow_size[1]);
     }
     
