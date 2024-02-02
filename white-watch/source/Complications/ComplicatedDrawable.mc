@@ -68,10 +68,14 @@ module Complicated {
                     if (model instanceof PercentModel) {
                         // Handle drawing the percent
                         var percent = (model as PercentModel).percent;
-                        
+
+                        dc.setPenWidth(4);
+                        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+                        dc.drawCircle(_centerX, _centerY, _radius);
+
                         // dc.setColor(0xC0A074, Graphics.COLOR_TRANSPARENT);
                         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-                        dc.setPenWidth(4);
+                        dc.setPenWidth(2);
 
                         // Start drawing from the top
                         if (percent > 0) {
