@@ -102,9 +102,9 @@ class SimpleAnalogView extends WatchUi.WatchFace {
         // prop = Application.getApp().getProperty("Complication3");
         // _complications[2].setModelUpdater(Complicated.getComplication(prop));
 
-        _complications[3] = View.findDrawableById("Complication4") as ComplicationDrawable;    
-        prop = Application.getApp().getProperty("Complication4");
-        _complications[3].setModelUpdater(Complicated.getComplication(prop));
+        // _complications[3] = View.findDrawableById("Complication4") as ComplicationDrawable;    
+        // prop = Application.getApp().getProperty("Complication4");
+        // _complications[3].setModelUpdater(Complicated.getComplication(prop));
     }
 
     // Update the view
@@ -163,7 +163,8 @@ class SimpleAnalogView extends WatchUi.WatchFace {
            	
 
 		dc.setColor(foreground_color, Graphics.COLOR_TRANSPARENT);
-    	drawDate(dc, height/2, width/8);	  	
+    	drawDate(dc, width/2, height/8);
+		drawElev(dc, width/2, height - height/4);	  	
     	dc.setColor(hour_min_hand_color, Graphics.COLOR_TRANSPARENT);
 		drawHands(dc, clockTime.hour, clockTime.min, clockTime.sec, Graphics.COLOR_BLACK, Graphics.COLOR_BLACK, Graphics.COLOR_DK_RED);
 	}
@@ -334,6 +335,13 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 		var dateString = Lang.format("$1$.$2$.$3$", [info.day.format("%02d"), info.month.format("%02d"), info.year % 100]);
 		// var dateString = Lang.format("$1$.$2$", [dc.getWidth(), dc.getHeight()]);
 		drawTextBox(dc, dateString, x, y, dow_size[0], dow_size[1]);
+    }
+
+	function drawElev(dc, x, y) {
+		
+		var height = Toybox.Activity.getActivityInfo().altitude;
+
+		drawTextBox(dc, height.format("%d") + " m", x, y, dow_size[0], dow_size[1]);
     }
     
 	function drawTextBox(dc, text, x, y, width, height) {

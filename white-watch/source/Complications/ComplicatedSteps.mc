@@ -18,7 +18,7 @@ module Complicated {
 
         //! Constructor
         public function initialize() {
-            _icon = Application.loadResource(Rez.Drawables.steps);
+            _icon = Application.loadResource(Rez.Drawables.battery);
         }
 
         //! Update the model 
