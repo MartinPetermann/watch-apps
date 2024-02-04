@@ -57,4 +57,7 @@
     <bitmap id="nice" filename="gray.3.png" scaleX="32%" scaleY="32%" scaleRelativeTo="screen" dithering="none">      
     </bitmap>  
 
+    <bitmap id="background14" filename="h14.png" automaticPalette="true" scaleX="100%" scaleY="100%" scaleRelativeTo="screen"> 
+    </bitmap>
+
 </drawables>
