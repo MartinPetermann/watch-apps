@@ -4,7 +4,7 @@
         Import the SVGs and scale all the icons to 10% of the screen
         All icons from freeicons.io
     -->
-    <bitmap id="battery" filename="Europa.8.png" scaleX="32%" scaleY="32%" scaleRelativeTo="screen" dithering="none">      
+    <bitmap id="battery" filename="Europa.10.png" scaleX="32%" scaleY="32%" scaleRelativeTo="screen" dithering="none">      
     </bitmap>
     <bitmap id="steps" filename="Mainz.3.png" scaleX="32%" scaleY="32%" scaleRelativeTo="screen"> 
     </bitmap>
