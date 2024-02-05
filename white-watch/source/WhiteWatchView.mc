@@ -303,7 +303,8 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 		if ( drawCircleOnTop ) {
 			var xCircle = ((coords[1][0]+(width/2)) * cos) - ((coords[1][1]) * sin);
 			var yCircle = ((coords[1][0]+(width/2)) * sin) + ((coords[1][1]) * cos);
-			dc.drawBitmap(centerX + xCircle - secBitmapX/2, centerY + yCircle - secBitmapY/2, secBitmap);
+			// dc.drawBitmap(centerX + xCircle - secBitmapX/2, centerY + yCircle - secBitmapY/2, secBitmap);
+			dc.fillCircle(centerX + xCircle, centerY + yCircle, sec_hand_diam);
 		}
     }
 

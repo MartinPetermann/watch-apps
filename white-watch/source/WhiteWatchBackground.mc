@@ -3,7 +3,8 @@ import Toybox.Application;
 import Toybox.Graphics;
 
 class Background extends WatchUi.Drawable {
-    private var image as BitmapType;
+    private var image1 as BitmapType;
+    private var image2 as BitmapType;
 
     function initialize() {
         var dictionary = {
@@ -12,7 +13,8 @@ class Background extends WatchUi.Drawable {
 
         Drawable.initialize(dictionary);
 
-        image = Application.loadResource( Rez.Drawables.background14 ) as BitmapResource;
+        image1 = Application.loadResource( Rez.Drawables.background16 ) as BitmapResource;
+        image2 = Application.loadResource( Rez.Drawables.rim ) as BitmapResource;
     }
 
     function draw(dc) {
@@ -20,7 +22,9 @@ class Background extends WatchUi.Drawable {
         // dc.setColor(Graphics.COLOR_TRANSPARENT, Application.getApp().getProperty("BackgroundColor"));
         // dc.clear();
 
-        dc.drawBitmap( 0, 0, image );
+        dc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_TRANSPARENT);
+        dc.drawBitmap( 0, 0, image1 );
+        //dc.drawBitmap( 0, 0, image2 );
     }
 
 }
