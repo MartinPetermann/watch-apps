@@ -58,6 +58,9 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 	var status_box_size = [94, 19];
 
 	var image as BitmapType;
+	var secBitmap as BitmapType;
+	var secBitmapX;
+	var secBitmapY;
 	var _complications as Array<ComplicationDrawable>;
 
 	var width_screen;
@@ -66,6 +69,9 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     function initialize() {
         WatchFace.initialize();
 		image = Application.loadResource( Rez.Drawables.background4 ) as BitmapResource;
+		secBitmap = Application.loadResource(Rez.Drawables.second);
+		secBitmapX = secBitmap.getWidth();
+		secBitmapY = secBitmap.getHeight();
 		_complications = new Array<ComplicationDrawable>[4];
     }
 
@@ -289,19 +295,16 @@ class SimpleAnalogView extends WatchUi.WatchFace {
             var x = (coords[i][0] * cos) - (coords[i][1] * sin);
             var y = (coords[i][0] * sin) + (coords[i][1] * cos);
             result[i] = [ centerX + x, centerY + y];
-            if(drawCircleOnTop)
-            {
-                if(i == 1)
-                {
-                    var xCircle = ((coords[i][0]+(width/2)) * cos) - ((coords[i][1]) * sin);
-                    var yCircle = ((coords[i][0]+(width/2)) * sin) + ((coords[i][1]) * cos);
-                    dc.fillCircle(centerX + xCircle, centerY + yCircle, sec_hand_diam);
-                }
-            }
         }
 
         // Draw the polygon
         dc.fillPolygon(result);
+
+		if ( drawCircleOnTop ) {
+			var xCircle = ((coords[1][0]+(width/2)) * cos) - ((coords[1][1]) * sin);
+			var yCircle = ((coords[1][0]+(width/2)) * sin) + ((coords[1][1]) * cos);
+			dc.drawBitmap(centerX + xCircle - secBitmapX/2, centerY + yCircle - secBitmapY/2, secBitmap);
+		}
     }
 
     function drawHands(dc, clock_hour, clock_min, clock_sec, hour_color, min_color, sec_color)
