@@ -26,26 +26,36 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 	
 	
 
-    //similar values like on https://codepen.io/jobe451/pen/rNWrqPw
-	// 0.75 chosen by trying out
-	var relative_length = 0.75;
+    // like on https://codepen.io/jobe451/pen/rNWrqPw
+	// see schweizer_bahnhofsuhr.jpg
+	// 1.3 chosen by trying out, do not know why necessary
+	var relative_length = 1.3;
 
-    var hour_hand_length = 32/relative_length*(260/100);
-    var min_hand_length = 46/relative_length*(260/100);
-    var sec_hand_length = 31.2/relative_length*(260/100);
+    var hour_hand_length = 32*relative_length*(260/100);
+    var min_hand_length = 46*relative_length*(260/100);
+    var sec_hand_length = 31.2*relative_length*(260/100);
 
-    var hour_hand_stroke = 12/relative_length*(260/100);
-    var min_hand_stroke = 12/relative_length*(260/100);
-    var sec_hand_stroke = 16.5/relative_length*(260/100);
+    var hour_hand_stroke = 12*relative_length*(260/100);
+    var min_hand_stroke = 12*relative_length*(260/100);
+    var sec_hand_stroke = 16.5*relative_length*(260/100);
 
 	
-    var hour_hand_width = 5.8/relative_length*(260/100);
-    var min_hand_width = 4.4/relative_length*(260/100);
-    var sec_hand_width = 1.4/relative_length*(260/100);
+    var hour_hand_width_1 = 6.4*relative_length*(260/100);
+    var hour_hand_width_2 = 5.2*relative_length*(260/100);
+
+    var min_hand_width_1 = 5.2*relative_length*(260/100);
+    var min_hand_width_2 = 3.6*relative_length*(260/100);
+
+    var sec_hand_width = 1.4*relative_length*(260/100);
 
 	// orig value is double in size
-	var sec_hand_diam = 5.25/relative_length*(260/100);
+	var sec_hand_diam = 5.25*relative_length*(260/100);
 
+	var hour_tick_length = 12*relative_length*(260/100);
+	var hour_tick_stroke = 3.5*relative_length*(260/100);
+	var min_tick_length = 3.5*relative_length*(260/100);
+	var min_tick_stroke = 1.4*relative_length*(260/100);
+	var rim = 1.5*relative_length*(260/100);
 
     var relative_center_radius = .025;
 
@@ -162,11 +172,45 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 
 	}
 
+    function drawTicks(dc, length, stroke, num) {
+		var tickAngle = 360/num;
+        var coords = [ 
+            [-(stroke/2), width_screen / 2 - rim, ],
+            [-(stroke/2), width_screen / 2 - length - rim],
+            [stroke/2, width_screen / 2 - length - rim ],
+            [stroke/2, width_screen / 2 - rim  ]
+        ];
+        var result = new [4];
+        var centerX = width_screen / 2;
+        var centerY = height_screen / 2;
+
+		for(var i = 0; i < num; i++) {
+			var angle = Math.toRadians(tickAngle * i);
+        	var cos = Math.cos(angle);
+        	var sin = Math.sin(angle);
+
+			// Transform the coordinates
+			for (var j = 0; j < 4; j += 1)
+			{
+				var x = (coords[j][0] * cos) - (coords[j][1] * sin);
+				var y = (coords[j][0] * sin) + (coords[j][1] * cos);
+				result[j] = [ centerX + x, centerY + y];
+			}
+
+			// Draw the polygon
+			dc.fillPolygon(result);
+		}
+
+    }
+
 	function drawBackground(dc) {
 		var clockTime = System.getClockTime();
         var width = dc.getWidth();
         var height = dc.getHeight();
            	
+		dc.setColor(foreground_color, Graphics.COLOR_TRANSPARENT);
+		drawTicks(dc, hour_tick_length, hour_tick_stroke, 12);
+		drawTicks(dc, min_tick_length, min_tick_stroke, 60);
 
 		dc.setColor(foreground_color, Graphics.COLOR_TRANSPARENT);
     	drawDate(dc, width/2, height/8);
@@ -272,14 +316,14 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     //! @param angle Angle to draw the watch hand
     //! @param length Length of the watch hand
     //! @param width Width of the watch hand
-    function drawHand(dc, angle, length, width, overheadLine, drawCircleOnTop)
+    function drawHand(dc, angle, length, width_1, width_2, overheadLine, drawCircleOnTop)
     {
         // Map out the coordinates of the watch hand
         var coords = [ 
-            [-(width/2), 0 + overheadLine],
-            [-(width/2), -length],
-            [width/2, -length],
-            [width/2, 0 + overheadLine]
+            [-(width_1/2), 0 + overheadLine],
+            [-(width_2/2), -length],
+            [width_2/2, -length],
+            [width_1/2, 0 + overheadLine]
         ];
         var result = new [4];
         var centerX = width_screen / 2;
@@ -301,9 +345,8 @@ class SimpleAnalogView extends WatchUi.WatchFace {
         dc.fillPolygon(result);
 
 		if ( drawCircleOnTop ) {
-			var xCircle = ((coords[1][0]+(width/2)) * cos) - ((coords[1][1]) * sin);
-			var yCircle = ((coords[1][0]+(width/2)) * sin) + ((coords[1][1]) * cos);
-			// dc.drawBitmap(centerX + xCircle - secBitmapX/2, centerY + yCircle - secBitmapY/2, secBitmap);
+			var xCircle = ((coords[1][0]+(width_1/2)) * cos) - ((coords[1][1]) * sin);
+			var yCircle = ((coords[1][0]+(width_1/2)) * sin) + ((coords[1][1]) * cos);
 			dc.fillCircle(centerX + xCircle, centerY + yCircle, sec_hand_diam);
 		}
     }
@@ -318,18 +361,18 @@ class SimpleAnalogView extends WatchUi.WatchFace {
         hour = hour / (12 * 60.0);
         hour = hour * Math.PI * 2;
         dc.setColor(hour_color, Graphics.COLOR_TRANSPARENT);
-        drawHand(dc, hour, hour_hand_length, hour_hand_width, hour_hand_stroke, false);
+        drawHand(dc, hour, hour_hand_length, hour_hand_width_1, hour_hand_width_2, hour_hand_stroke, false);
 
         // Draw the minute
         min = ( clock_min / 60.0) * Math.PI * 2;
         dc.setColor(min_color, Graphics.COLOR_TRANSPARENT);
-        drawHand(dc, min, min_hand_length, min_hand_width, min_hand_stroke, false);
+        drawHand(dc, min, min_hand_length, min_hand_width_1, min_hand_width_2, min_hand_stroke, false);
 
         // Draw the seconds
         if(lowPower == false){
             sec = ( clock_sec / 60.0) *  Math.PI * 2;
             dc.setColor(sec_color, Graphics.COLOR_TRANSPARENT);
-            drawHand(dc, sec, sec_hand_length, sec_hand_width, sec_hand_stroke, true);
+            drawHand(dc, sec, sec_hand_length, sec_hand_width, sec_hand_width, sec_hand_stroke, true);
         }
     }
 

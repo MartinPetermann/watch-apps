@@ -22,15 +22,18 @@ module Complicated {
         //! all image representations
         public var icon as BitmapType;
 
+        public var show_icon as Boolean;
+
         //! Constructor
         //! @param p 0 - 100 value for progress bar
         //! @param i Icon to display
-        public function initialize(l as String, p as Number, i as BitmapType) {
+        public function initialize(l as String, p as Number, i as BitmapType, si as Boolean) {
             // Initializing the members in the constructor
             // allows you to declare them as not being null
             label = l;
             percent = p;
             icon = i;
+            show_icon = si;
         }
     }
 
@@ -98,8 +101,6 @@ module Complicated {
                 return new Complicated.Steps();
             case COMPLICATED_DATE:
                 return new Complicated.Date();
-            case COMPLICATED_HEIGHT:
-                return new Complicated.Height();
             // case COMPLICATED_HR:
             //     return new Complicated.HeartRate();
             // case COMPLICATED_ACTIVE_MINUTES_WEEK:

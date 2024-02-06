@@ -55,13 +55,16 @@ module Complicated {
 
                 if (model instanceof PercentModel or model instanceof LabelModel) {
                     var icon = model.icon;
+                    var show_icon = model.show_icon;
                     var iconWidth = icon.getWidth();
                     var iconHeight = icon.getHeight();                
 
                     // Draw the background
                     // dc.drawBitmap(locX, locY, _background);   
                     // Draw the icon
-                    dc.drawBitmap(_centerX - (iconWidth / 2), _centerY - (iconHeight / 2), icon); 
+                    if (show_icon) {
+                        dc.drawBitmap(_centerX - (iconWidth / 2), _centerY - (iconHeight / 2), icon);
+                    }
 
                     var label = model.label;           
 

@@ -13,7 +13,7 @@ class Background extends WatchUi.Drawable {
 
         Drawable.initialize(dictionary);
 
-        image1 = Application.loadResource( Rez.Drawables.background16 ) as BitmapResource;
+        image1 = Application.loadResource( Rez.Drawables.background15 ) as BitmapResource;
         image2 = Application.loadResource( Rez.Drawables.rim ) as BitmapResource;
     }
 

@@ -15,10 +15,12 @@ module Complicated {
     class Steps {
         //! Steps icon
         private var _icon as BitmapType;
+        private var _show_icon as Boolean;
 
         //! Constructor
         public function initialize() {
             _icon = Application.loadResource(Rez.Drawables.battery);
+            _show_icon = false;
         }
 
         //! Update the model 
@@ -26,7 +28,7 @@ module Complicated {
             var info = ActivityMonitor.getInfo();
             var stepsPercent = (info.steps.toFloat() / info.stepGoal.toFloat()) * 100;
             var steps = "STEPS\n" + info.steps.toString();
-            return new PercentModel(steps, stepsPercent.toNumber(), _icon);
+            return new PercentModel(steps, stepsPercent.toNumber(), _icon, _show_icon);
         }
     }
 }
