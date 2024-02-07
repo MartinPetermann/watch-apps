@@ -19,5 +19,5 @@
     <property id="Complication3" type="number">2</property>
     <property id="Complication4" type="number">3</property>
     <!-- 1.3 chosen by trying out, do not know why necessary -->
-    <property id="relative_length" type="float">1.3</property>
+    <!-- <property id="relative_length" type="float">1.0</property> -->
 </properties>

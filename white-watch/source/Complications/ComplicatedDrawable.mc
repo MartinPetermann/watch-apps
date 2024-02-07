@@ -17,7 +17,6 @@ module Complicated {
         private var _centerX as Number;
         private var _centerY as Number;
 
-
         //! Constructor
         //! @param params Drawable arguments
         public function initialize(params as { :identifier as Object, :locX as Numeric, :locY as Numeric, :width as Numeric, :height as Numeric }) {   
@@ -50,7 +49,7 @@ module Complicated {
         //! @param dc Draw context
         public function draw(dc as Dc) as Void {            
             if (_updater != null) {
-                var foregroundColor = Application.getApp().getProperty("ForegroundColor");
+                var foregroundColor = Application.Properties.getValue("ForegroundColor");
                 var model = _updater.updateModel();
 
                 if (model instanceof PercentModel or model instanceof LabelModel) {

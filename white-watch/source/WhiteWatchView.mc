@@ -24,33 +24,33 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 	var text_color;
 	var show_min_ticks;
 	
-	
+	var mySettings = System.getDeviceSettings();
+    var screen_width = mySettings.screenWidth;
 
     // like on https://codepen.io/jobe451/pen/rNWrqPw
 	// see schweizer_bahnhofsuhr.jpg
-	var relative_length = Application.getApp().getProperty("relative_length");
 
-    var hour_hand_length = 32*relative_length*(260/100);
-    var min_hand_length = 46*relative_length*(260/100);
-    var sec_hand_length = 31.2*relative_length*(260/100);
+    var hour_hand_length = 32*(screen_width/100.0);
+    var min_hand_length = 46*(screen_width/100.0);
+    var sec_hand_length = 31.2*(screen_width/100.0);
 
-    var hour_hand_stroke = 12*relative_length*(260/100);
-    var min_hand_stroke = 12*relative_length*(260/100);
-    var sec_hand_stroke = 16.5*relative_length*(260/100);
+    var hour_hand_stroke = 12*(screen_width/100.0);
+    var min_hand_stroke = 12*(screen_width/100.0);
+    var sec_hand_stroke = 16.5*(screen_width/100.0);
 
 	
-    var hour_hand_width_1 = 6.4*relative_length*(260/100);
-    var hour_hand_width_2 = 5.2*relative_length*(260/100);
+    var hour_hand_width_1 = 6.4*(screen_width/100.0);
+    var hour_hand_width_2 = 5.2*(screen_width/100.0);
 
-    var min_hand_width_1 = 5.2*relative_length*(260/100);
-    var min_hand_width_2 = 3.6*relative_length*(260/100);
+    var min_hand_width_1 = 5.2*(screen_width/100.0);
+    var min_hand_width_2 = 3.6*(screen_width/100.0);
 
-    var sec_hand_width = 1.4*relative_length*(260/100);
+    var sec_hand_width = 1.4*(screen_width/100.0);
 
 	// orig value is double in size
-	var sec_hand_diam = 5.25*relative_length*(260/100);
+	var sec_hand_diam = 5.25*(screen_width/100.0);
 
-	var rim = 1.5*relative_length*(260/100);
+	var rim = 1.5*(screen_width/100.0);
 
     var relative_center_radius = .025;
 
@@ -68,9 +68,6 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 	var secBitmapY;
 	var _complications as Array<ComplicationDrawable>;
 
-	var width_screen;
-	var height_screen;
-
     function initialize() {
         WatchFace.initialize();
 		image = Application.loadResource( Rez.Drawables.background4 ) as BitmapResource;
@@ -84,9 +81,6 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     function onLayout(dc) {
 		dc.setAntiAlias(true);
 
-		width_screen = dc.getWidth();
-		height_screen = dc.getHeight();
-
 			//increase the size of resources so they are visible on the Venu
 		mainFont = WatchUi.loadResource(Rez.Fonts.BigFont);
 		iconFont = WatchUi.loadResource(Rez.Fonts.BigIconFont);
@@ -97,24 +91,24 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 		battery_size = [32*1.5, 19*1.5];
 		status_box_size = [94*1.5, 19*1.5];
 
-		updateValues(dc.getWidth());
+		updateValues();
 
 		setLayout(Rez.Layouts.WatchFace(dc));
 
 		_complications[0] = View.findDrawableById("Complication1") as ComplicationDrawable;
-        var prop = Application.getApp().getProperty("Complication1");
+        var prop = Application.Properties.getValue("Complication1");
         _complications[0].setModelUpdater(Complicated.getComplication(prop));
 
         _complications[1] = View.findDrawableById("Complication2") as ComplicationDrawable;    
-        prop = Application.getApp().getProperty("Complication2");
+        prop = Application.Properties.getValue("Complication2");
         _complications[1].setModelUpdater(Complicated.getComplication(prop));
 
         // _complications[2] = View.findDrawableById("Complication3") as ComplicationDrawable;    
-        // prop = Application.getApp().getProperty("Complication3");
+        // prop = Application.Properties.getValue("Complication3");
         // _complications[2].setModelUpdater(Complicated.getComplication(prop));
 
         // _complications[3] = View.findDrawableById("Complication4") as ComplicationDrawable;    
-        // prop = Application.getApp().getProperty("Complication4");
+        // prop = Application.Properties.getValue("Complication4");
         // _complications[3].setModelUpdater(Complicated.getComplication(prop));
     }
 
@@ -123,19 +117,15 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 		dc.setAntiAlias(true);
 
 		View.onUpdate(dc);	
-		var width = dc.getWidth();
 
-		updateValues(dc.getWidth());
+		updateValues();
 
 		drawBackground(dc);			
-
-		// dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
-		// dc.fillCircle(dc.getWidth()/2-1, dc.getHeight()/2-1, relative_center_radius*width);
     }
     
 	//use this to update values controlled by settings
-	function updateValues(width) {
-		var UMF = Application.getApp().getProperty("Use24HourFormat");
+	function updateValues() {
+		var UMF = Application.Properties.getValue("Use24HourFormat");
 		if(UMF == 0) {
 			is24 = true;
 		}
@@ -153,28 +143,28 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 			isDistanceMetric = false;
 		}
 
-		showTicks = Application.getApp().getProperty("ShowTicks");
-		RBD = Application.getApp().getProperty("RightBoxDisplay1");
-		showBoxes = Application.getApp().getProperty("ShowBoxes");
+		showTicks = Application.Properties.getValue("ShowTicks");
+		RBD = Application.Properties.getValue("RightBoxDisplay1");
+		showBoxes = Application.Properties.getValue("ShowBoxes");
 		
-		background_color_1 = getColor(Application.getApp().getProperty("BackgroundColor"));
-		foreground_color = getColor(Application.getApp().getProperty("ForegroundColor"));
-		box_color = getColor(Application.getApp().getProperty("BoxColor"));
-		second_hand_color = getColor(Application.getApp().getProperty("SecondHandColor"));
-		hour_min_hand_color = getColor(Application.getApp().getProperty("HourMinHandColor"));
-		text_color = getColor(Application.getApp().getProperty("TextColor"));
-		show_min_ticks = Application.getApp().getProperty("ShowMinTicks");
+		background_color_1 = getColor(Application.Properties.getValue("BackgroundColor"));
+		foreground_color = getColor(Application.Properties.getValue("ForegroundColor"));
+		box_color = getColor(Application.Properties.getValue("BoxColor"));
+		second_hand_color = getColor(Application.Properties.getValue("SecondHandColor"));
+		hour_min_hand_color = getColor(Application.Properties.getValue("HourMinHandColor"));
+		text_color = getColor(Application.Properties.getValue("TextColor"));
+		show_min_ticks = Application.Properties.getValue("ShowMinTicks");
 
 	}
 
 	function drawBackground(dc) {
 		var clockTime = System.getClockTime();
-        var width = dc.getWidth();
-        var height = dc.getHeight();
+;
            	
 		dc.setColor(foreground_color, Graphics.COLOR_TRANSPARENT);
-    	drawDate(dc, width/2, height/8);
-		drawElev(dc, width/2, height - height/4);	  	
+		// screen width == screen height
+    	drawDate(dc, screen_width/2, screen_width/8);
+		drawElev(dc, screen_width/2, screen_width - screen_width/4);	  	
     	dc.setColor(hour_min_hand_color, Graphics.COLOR_TRANSPARENT);
 		drawHands(dc, clockTime.hour, clockTime.min, clockTime.sec, Graphics.COLOR_BLACK, Graphics.COLOR_BLACK, Graphics.COLOR_DK_RED);
 	}
@@ -286,8 +276,8 @@ class SimpleAnalogView extends WatchUi.WatchFace {
             [width_1/2, 0 + overheadLine]
         ];
         var result = new [4];
-        var centerX = width_screen / 2;
-        var centerY = height_screen / 2;
+        var centerX = screen_width / 2;
+        var centerY = screen_width / 2;
         var cos = Math.cos(angle);
         var sin = Math.sin(angle);
 
@@ -340,30 +330,15 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 		
 		var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
 		var dateString = Lang.format("$1$.$2$.$3$", [info.day.format("%02d"), info.month.format("%02d"), info.year % 100]);
-		// var dateString = Lang.format("$1$.$2$", [dc.getWidth(), dc.getHeight()]);
-		drawTextBox(dc, dateString, x, y, dow_size[0], dow_size[1]);
+		dc.drawText(x, y, Graphics.FONT_TINY, dateString, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
 	function drawElev(dc, x, y) {
 		
 		var height = Toybox.Activity.getActivityInfo().altitude;
-
-		drawTextBox(dc, height.format("%d") + " m", x, y, dow_size[0], dow_size[1]);
+		dc.drawText(x, y, Graphics.FONT_TINY, height.format("%d") + " m", Graphics.TEXT_JUSTIFY_CENTER);
     }
     
-	function drawTextBox(dc, text, x, y, width, height) {
-		var boxText = new WatchUi.Text({
-            :text=>text,
-            :color=>text_color,
-            :font=>Graphics.FONT_TINY,
-            :locX =>x + text_padding[0],
-            :locY=>y,
-			:justification=>Graphics.TEXT_JUSTIFY_CENTER
-        });
-
-		boxText.draw(dc);
-	}
-
     // Called when this View is brought to the foreground. Restore
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
