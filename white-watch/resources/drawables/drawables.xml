@@ -1,5 +1,5 @@
 <drawables>
-    <bitmap id="LauncherIcon" filename="launcher_icon.png" />
+    <bitmap id="LauncherIcon" filename="Europa.s.png" />
     <!--
         Import the SVGs and scale all the icons to 10% of the screen
         All icons from freeicons.io

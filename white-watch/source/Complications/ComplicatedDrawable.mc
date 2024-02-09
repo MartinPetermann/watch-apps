@@ -17,21 +17,24 @@ module Complicated {
         private var _centerX as Number;
         private var _centerY as Number;
 
+        private var mySettings = System.getDeviceSettings();
+        private var screen_width = mySettings.screenWidth;
+        private var screen_height = mySettings.screenHeight;
+
         //! Constructor
         //! @param params Drawable arguments
         public function initialize(params as { :identifier as Object, :locX as Numeric, :locY as Numeric, :width as Numeric, :height as Numeric }) {   
 
             // Use the given point as the center point
-            var backgroundWidth = _background.getWidth();
             var backgroundHeight = _background.getHeight();
 
-            _centerX = params[:locX];
-            _centerY = params[:locY];
+            _centerX = params[:locX]*screen_width/100;
+            _centerY = params[:locY]*screen_height/100;
             _radius = backgroundHeight / 1.25;
 
             var options = {
-                :locX => params[:locX] - (backgroundWidth / 2),
-                :locY => params[:locY] - (backgroundHeight / 2),
+                :locX => params[:locX],
+                :locY => params[:locY],
                 :identifier => params[:identifier]
             };
 
