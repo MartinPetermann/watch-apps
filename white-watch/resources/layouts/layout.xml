@@ -1,3 +1,5 @@
+<!-- all layout values are percentages -->
+
 <layout id="WatchFace">
     <drawable class="Background" />
     <drawable id="Complication1" class="Complicated.ComplicationDrawable">

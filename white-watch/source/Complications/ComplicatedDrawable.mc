@@ -61,8 +61,6 @@ module Complicated {
                     var iconWidth = icon.getWidth();
                     var iconHeight = icon.getHeight();                
 
-                    // Draw the background
-                    // dc.drawBitmap(locX, locY, _background);   
                     // Draw the icon
                     if (show_icon) {
                         dc.drawBitmap(_centerX - (iconWidth / 2), _centerY - (iconHeight / 2), icon);
@@ -78,7 +76,6 @@ module Complicated {
                         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
                         dc.drawCircle(_centerX, _centerY, _radius);
 
-                        // dc.setColor(0xC0A074, Graphics.COLOR_TRANSPARENT);
                         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
                         dc.setPenWidth(2);
 
@@ -94,8 +91,10 @@ module Complicated {
                     } 
 
                     // Draw the label
+                    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+                    dc.drawText(_centerX+1, _centerY+1, Graphics.FONT_TINY, label, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
                     dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-                    dc.drawText(_centerX, _centerY + (_radius * 0), Graphics.FONT_TINY, label, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+                    dc.drawText(_centerX, _centerY, Graphics.FONT_TINY, label, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
                 } else if (model instanceof StringModel) {
                     // Handle drawing the label

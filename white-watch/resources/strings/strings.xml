@@ -1,12 +1,7 @@
 <strings>
 
-    <string id="AppName">Simple Times</string>
-    
-    <string id="MilitaryFormatTitle">Use 24 Hour Time</string>
-   	<string id="MF_0">Yes</string>
-   	<string id="MF_1">No</string>
-   	<string id="MF_2">Use System Default</string>
-   	
+    <string id="AppName">White Watch</string>
+      	
    	<string id = "BackgroundColorTitle">Gradient start color</string>
    	<string id = "BackgroundColorTitle1">Gradient end color</string>
    	<string id = "ForegroundColorTitle">Tick color</string>

@@ -53,46 +53,7 @@
     
     <setting propertyKey="@Properties.ShowMinTicks" title="@Strings.ShowMinTicksTitle">
         <settingConfig type="boolean" />
-    </setting>   
-    
-    <setting propertyKey="@Properties.TextColor" title="@Strings.TextColorTitle">
-         <settingConfig type="list">
-           	<listEntry value="0">@Strings.Color1</listEntry>
-           	<listEntry value="1">@Strings.Color2</listEntry>
-           	<listEntry value="2">@Strings.Color3</listEntry>
-           	<listEntry value="3">@Strings.Color4</listEntry>
-           	<listEntry value="4">@Strings.Color5</listEntry>
-           	<listEntry value="5">@Strings.Color6</listEntry>
-           	<listEntry value="6">@Strings.Color7</listEntry>
-           	<listEntry value="7">@Strings.Color8</listEntry>
-           	<listEntry value="8">@Strings.Color9</listEntry>
-         	<listEntry value="9">@Strings.Color10</listEntry>
-           	<listEntry value="10">@Strings.Color11</listEntry>
-           	<listEntry value="11">@Strings.Color12</listEntry>
-           	<listEntry value="12">@Strings.Color13</listEntry>
-           	<listEntry value="13">@Strings.Color14</listEntry>
-        </settingConfig>
-    </setting>
-    
-    <setting propertyKey="@Properties.BoxColor" title="@Strings.BoxColorTitle">
-         <settingConfig type="list">
-           	<listEntry value="0">@Strings.Color1</listEntry>
-           	<listEntry value="1">@Strings.Color2</listEntry>
-           	<listEntry value="2">@Strings.Color3</listEntry>
-           	<listEntry value="3">@Strings.Color4</listEntry>
-           	<listEntry value="4">@Strings.Color5</listEntry>
-           	<listEntry value="5">@Strings.Color6</listEntry>
-           	<listEntry value="6">@Strings.Color7</listEntry>
-           	<listEntry value="7">@Strings.Color8</listEntry>
-           	<listEntry value="8">@Strings.Color9</listEntry>
-         	<listEntry value="9">@Strings.Color10</listEntry>
-           	<listEntry value="10">@Strings.Color11</listEntry>
-           	<listEntry value="11">@Strings.Color12</listEntry>
-           	<listEntry value="12">@Strings.Color13</listEntry>
-           	<listEntry value="13">@Strings.Color14</listEntry>
-        </settingConfig>
-    </setting>
-   
+    </setting>    
         
     <setting propertyKey="@Properties.ForegroundColor" title="@Strings.ForegroundColorTitle">
          <settingConfig type="list">
@@ -152,15 +113,6 @@
         </settingConfig>
     </setting>
     
-   	<setting propertyKey="@Properties.Use24HourFormat" title="@Strings.MilitaryFormatTitle">
-         <settingConfig type="list">
-           	<listEntry value="0">@Strings.MF_0</listEntry>
-            <listEntry value="1">@Strings.MF_1</listEntry>
-            <listEntry value="2">@Strings.MF_2</listEntry>
-        </settingConfig>
-    </setting>
-
-
     <setting propertyKey="@Properties.Complication1" title="@Strings.Complication1">
         <settingConfig type="list">
             <listEntry value="0">@Strings.Battery</listEntry>
@@ -178,26 +130,6 @@
             <listEntry value="2">@Strings.Date</listEntry>
             <listEntry value="3">@Strings.Height</listEntry>
             <listEntry value="-1">@Strings.None</listEntry>            
-        </settingConfig>
-    </setting>
-
-    <setting propertyKey="@Properties.Complication3" title="@Strings.Complication3">
-        <settingConfig type="list">
-            <listEntry value="0">@Strings.Battery</listEntry>
-            <listEntry value="1">@Strings.Steps</listEntry>
-            <listEntry value="2">@Strings.Date</listEntry>
-            <listEntry value="3">@Strings.Height</listEntry>
-            <listEntry value="-1">@Strings.None</listEntry>
-        </settingConfig>
-    </setting>
-
-    <setting propertyKey="@Properties.Complication4" title="@Strings.Complication4">
-        <settingConfig type="list">
-            <listEntry value="0">@Strings.Battery</listEntry>
-            <listEntry value="1">@Strings.Steps</listEntry>
-            <listEntry value="2">@Strings.Date</listEntry>
-            <listEntry value="3">@Strings.Height</listEntry>
-            <listEntry value="-1">@Strings.None</listEntry>              
         </settingConfig>
     </setting>
 

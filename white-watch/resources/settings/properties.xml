@@ -1,23 +1,36 @@
 <properties>
-    <property id="Use24HourFormat" type="number">2</property>
-    <property id="ShowTicks" type="boolean">true</property>
     <property id="BackgroundColor" type="number">5</property>
     <property id="BackgroundColor1" type="number">4</property>
     <property id="Background" type="number">0</property>
     <property id="ForegroundColor" type="number">0</property>
-    <property id="BoxColor" type="number">3</property>
-    <property id="TextColor" type="number">0</property>
     <property id="SecondHandColor" type="number">6</property>
     <property id="HourMinHandColor" type="number">0</property>
     <property id="AlwaysOn" type="boolean">true</property>
-    <property id="ShowBoxes" type="boolean">false</property>
     <property id="RightBoxDisplay1" type="number">1</property>
     <property id="ShowMinTicks" type="boolean">true</property>
 
     <property id="Complication1" type="number">0</property>
     <property id="Complication2" type="number">1</property>
-    <property id="Complication3" type="number">2</property>
-    <property id="Complication4" type="number">3</property>
-    <!-- 1.3 chosen by trying out, do not know why necessary -->
-    <!-- <property id="relative_length" type="float">1.0</property> -->
+
+
+    <!-- like on https://codepen.io/jobe451/pen/rNWrqPw
+	see schweizer_bahnhofsuhr.jpg -->
+    <property id="hour_hand_length" type="float">32</property>
+    <property id="min_hand_length" type="float">46</property>
+    <property id="sec_hand_length" type="float">31.2</property>
+    <property id="hour_hand_stroke" type="float">12</property>
+    <property id="min_hand_stroke" type="float">12</property>
+    <property id="sec_hand_stroke" type="float">16.5</property>
+    <property id="hour_hand_width_1" type="float">6.4</property>
+    <property id="hour_hand_width_2" type="float">5.2</property>
+    <property id="min_hand_width_1" type="float">5.2</property>
+    <property id="min_hand_width_2" type="float">3.6</property>
+    <property id="sec_hand_width" type="float">1.4</property>
+	<property id="sec_hand_diam" type="float">10.5</property>
+	<property id="hour_tick_length" type="float">12</property>
+	<property id="hour_tick_stroke" type="float">3.5</property>
+	<property id="min_tick_length" type="float">3.5</property>
+	<property id="min_tick_stroke" type="float">1.4</property>
+	<property id="rim" type="float">1.5</property>
+
 </properties>

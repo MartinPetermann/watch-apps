@@ -2,19 +2,19 @@ import Toybox.WatchUi;
 import Toybox.Application;
 import Toybox.Graphics;
 
+import Misc;
+
 class Background extends WatchUi.Drawable {
     private var image1 as BitmapType;
 
     private var mySettings = System.getDeviceSettings();
     private var screen_width = mySettings.screenWidth;
 
-    // like on https://codepen.io/jobe451/pen/rNWrqPw
-	// see schweizer_bahnhofsuhr.jpg
-	private var hour_tick_length = 12*(screen_width/100.0);
-	private var hour_tick_stroke = 3.5*(screen_width/100.0);
-	private var min_tick_length = 3.5*(screen_width/100.0);
-	private var min_tick_stroke = 1.4*(screen_width/100.0);
-    private var rim = 1.5*(screen_width/100.0);
+	private var hour_tick_length = Misc.AdaptSize(Application.Properties.getValue("hour_tick_length"));
+	private var hour_tick_stroke = Misc.AdaptSize(Application.Properties.getValue("hour_tick_stroke"));
+	private var min_tick_length = Misc.AdaptSize(Application.Properties.getValue("min_tick_length"));
+	private var min_tick_stroke = Misc.AdaptSize(Application.Properties.getValue("min_tick_stroke"));
+	private var rim = Misc.AdaptSize(Application.Properties.getValue("rim"));
 
     function initialize() {
         var dictionary = {
@@ -57,13 +57,8 @@ class Background extends WatchUi.Drawable {
     }
 
     function draw(dc) {
-        // Set the background color then call to clear the screen
-        // dc.setColor(Graphics.COLOR_TRANSPARENT, Application.getApp().getProperty("BackgroundColor"));
-        // dc.clear();
-
         dc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_TRANSPARENT);
         dc.drawBitmap( 0, 0, image1 );
-        //dc.drawBitmap( 0, 0, image2 );
 
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
 		drawTicks(dc, hour_tick_length, hour_tick_stroke, 12);

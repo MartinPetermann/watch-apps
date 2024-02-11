@@ -7,60 +7,34 @@ import Toybox.Time.Gregorian;
 
 import Complicated;
 
+import Misc;
+
 class SimpleAnalogView extends WatchUi.WatchFace {
     var lowPower = false;
-    var is24;
-	var isDistanceMetric;
 	var showTicks;
-	var mainFont;
-	var iconFont;
-	var RBD = 0;
 	var showBoxes;
-	var background_color_1;
-	var foreground_color;
-	var box_color;
 	var second_hand_color;
 	var hour_min_hand_color;
-	var text_color;
 	var show_min_ticks;
 	
 	var mySettings = System.getDeviceSettings();
     var screen_width = mySettings.screenWidth;
 
-    // like on https://codepen.io/jobe451/pen/rNWrqPw
-	// see schweizer_bahnhofsuhr.jpg
-
-    var hour_hand_length = 32*(screen_width/100.0);
-    var min_hand_length = 46*(screen_width/100.0);
-    var sec_hand_length = 31.2*(screen_width/100.0);
-
-    var hour_hand_stroke = 12*(screen_width/100.0);
-    var min_hand_stroke = 12*(screen_width/100.0);
-    var sec_hand_stroke = 16.5*(screen_width/100.0);
-
-	
-    var hour_hand_width_1 = 6.4*(screen_width/100.0);
-    var hour_hand_width_2 = 5.2*(screen_width/100.0);
-
-    var min_hand_width_1 = 5.2*(screen_width/100.0);
-    var min_hand_width_2 = 3.6*(screen_width/100.0);
-
-    var sec_hand_width = 1.4*(screen_width/100.0);
-
-	// orig value is double in size
-	var sec_hand_diam = 5.25*(screen_width/100.0);
-
-	var rim = 1.5*(screen_width/100.0);
+    var hour_hand_length = Misc.AdaptSize(Application.Properties.getValue("hour_hand_length"));
+    var min_hand_length = Misc.AdaptSize(Application.Properties.getValue("min_hand_length"));
+    var sec_hand_length = Misc.AdaptSize(Application.Properties.getValue("sec_hand_length"));
+    var hour_hand_stroke = Misc.AdaptSize(Application.Properties.getValue("hour_hand_stroke"));
+    var min_hand_stroke = Misc.AdaptSize(Application.Properties.getValue("min_hand_stroke"));
+    var sec_hand_stroke = Misc.AdaptSize(Application.Properties.getValue("sec_hand_stroke"));
+    var hour_hand_width_1 = Misc.AdaptSize(Application.Properties.getValue("hour_hand_width_1"));
+    var hour_hand_width_2 = Misc.AdaptSize(Application.Properties.getValue("hour_hand_width_2"));
+    var min_hand_width_1 = Misc.AdaptSize(Application.Properties.getValue("min_hand_width_1"));
+    var min_hand_width_2 = Misc.AdaptSize(Application.Properties.getValue("min_hand_width_2"));
+    var sec_hand_width = Misc.AdaptSize(Application.Properties.getValue("sec_hand_width"));
+	var sec_hand_diam = Misc.AdaptSize(Application.Properties.getValue("sec_hand_diam"));
+	var rim = Misc.AdaptSize(Application.Properties.getValue("rim"));
 
     var relative_center_radius = .025;
-
-	var text_padding = [1, 2];
-	var dow_size = [44, 19];
-	var date_size = [24, 19];
-	var time_size = [48, 19];
-	var floors_size = [40, 19];
-	var battery_size = [32, 19];
-	var status_box_size = [94, 19];
 
 	var image as BitmapType;
 	var secBitmap as BitmapType;
@@ -82,15 +56,6 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 		dc.setAntiAlias(true);
 
 			//increase the size of resources so they are visible on the Venu
-		mainFont = WatchUi.loadResource(Rez.Fonts.BigFont);
-		iconFont = WatchUi.loadResource(Rez.Fonts.BigIconFont);
-		dow_size = [44 * 1.5, 19* 1.5];
-		date_size = [24* 1.5, 19* 1.5];
-		time_size = [48* 1.5, 19* 1.5];
-		floors_size = [48* 1.5, 19* 1.5];
-		battery_size = [32*1.5, 19*1.5];
-		status_box_size = [94*1.5, 19*1.5];
-
 		updateValues();
 
 		setLayout(Rez.Layouts.WatchFace(dc));
@@ -102,14 +67,6 @@ class SimpleAnalogView extends WatchUi.WatchFace {
         _complications[1] = View.findDrawableById("Complication2") as ComplicationDrawable;    
         prop = Application.Properties.getValue("Complication2");
         _complications[1].setModelUpdater(Complicated.getComplication(prop));
-
-        // _complications[2] = View.findDrawableById("Complication3") as ComplicationDrawable;    
-        // prop = Application.Properties.getValue("Complication3");
-        // _complications[2].setModelUpdater(Complicated.getComplication(prop));
-
-        // _complications[3] = View.findDrawableById("Complication4") as ComplicationDrawable;    
-        // prop = Application.Properties.getValue("Complication4");
-        // _complications[3].setModelUpdater(Complicated.getComplication(prop));
     }
 
     // Update the view
@@ -125,43 +82,14 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     
 	//use this to update values controlled by settings
 	function updateValues() {
-		var UMF = Application.Properties.getValue("Use24HourFormat");
-		if(UMF == 0) {
-			is24 = true;
-		}
-		if(UMF == 1) {
-			is24 = false;
-		}
-		if(UMF == 2) {
-			is24 = System.getDeviceSettings().is24Hour;
-		}
-
-		var distanceMetric = System.getDeviceSettings().distanceUnits;
-		if(distanceMetric == System.UNIT_METRIC) {
-			isDistanceMetric = true;
-		} else {
-			isDistanceMetric = false;
-		}
-
-		showTicks = Application.Properties.getValue("ShowTicks");
-		RBD = Application.Properties.getValue("RightBoxDisplay1");
-		showBoxes = Application.Properties.getValue("ShowBoxes");
-		
-		background_color_1 = getColor(Application.Properties.getValue("BackgroundColor"));
-		foreground_color = getColor(Application.Properties.getValue("ForegroundColor"));
-		box_color = getColor(Application.Properties.getValue("BoxColor"));
 		second_hand_color = getColor(Application.Properties.getValue("SecondHandColor"));
-		hour_min_hand_color = getColor(Application.Properties.getValue("HourMinHandColor"));
-		text_color = getColor(Application.Properties.getValue("TextColor"));
+		hour_min_hand_color = getColor(Application.Properties.getValue("HourMinHandColor"));\
 		show_min_ticks = Application.Properties.getValue("ShowMinTicks");
 
 	}
 
 	function drawBackground(dc) {
 		var clockTime = System.getClockTime();
-;
-           	
-		dc.setColor(foreground_color, Graphics.COLOR_TRANSPARENT);
 		// screen width == screen height
     	drawDate(dc, screen_width/2, screen_width/8);
 		drawElev(dc, screen_width/2, screen_width - screen_width/4);	  	
@@ -297,7 +225,8 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 		if ( drawCircleOnTop ) {
 			var xCircle = ((coords[1][0]+(width_1/2)) * cos) - ((coords[1][1]) * sin);
 			var yCircle = ((coords[1][0]+(width_1/2)) * sin) + ((coords[1][1]) * cos);
-			dc.fillCircle(centerX + xCircle, centerY + yCircle, sec_hand_diam);
+			// radius instead of diameter
+			dc.fillCircle(centerX + xCircle, centerY + yCircle, sec_hand_diam/2);
 		}
     }
 
@@ -326,16 +255,22 @@ class SimpleAnalogView extends WatchUi.WatchFace {
         }
     }
 
-	function drawDate(dc, x, y) {
-		
+	function drawDate(dc, x, y)
+	{
 		var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
 		var dateString = Lang.format("$1$.$2$.$3$", [info.day.format("%02d"), info.month.format("%02d"), info.year % 100]);
+		dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);	
+		dc.drawText(x+1, y+1, Graphics.FONT_TINY, dateString, Graphics.TEXT_JUSTIFY_CENTER);
+		dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);	
 		dc.drawText(x, y, Graphics.FONT_TINY, dateString, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
-	function drawElev(dc, x, y) {
-		
+	function drawElev(dc, x, y)
+	{
 		var height = Toybox.Activity.getActivityInfo().altitude;
+		dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);	
+		dc.drawText(x+1, y+1, Graphics.FONT_TINY, height.format("%d") + " m", Graphics.TEXT_JUSTIFY_CENTER);
+		dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);	
 		dc.drawText(x, y, Graphics.FONT_TINY, height.format("%d") + " m", Graphics.TEXT_JUSTIFY_CENTER);
     }
     
