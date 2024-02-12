@@ -11,6 +11,13 @@ module Complicated {
 
     //! Draw a complication
     class ComplicationDrawable extends WatchUi.Drawable {
+        private const foregroundColor = Application.Properties.getValue("ForegroundColor");
+        private const backgroundColor = Application.Properties.getValue("BackgroundColor");
+        private const text_color_f = Application.Properties.getValue("TextColorF");
+	    private const text_color_b = Application.Properties.getValue("TextColorB");
+        private const arc_color_f = Application.Properties.getValue("ArcColorF");
+	    private const arc_color_b = Application.Properties.getValue("ArcColorB");
+
         private var _background as BitmapType = Application.loadResource(Rez.Drawables.complication);
         private var _updater as ModelUpdater?;
         private var _radius as Float;
@@ -52,7 +59,6 @@ module Complicated {
         //! @param dc Draw context
         public function draw(dc as Dc) as Void {            
             if (_updater != null) {
-                var foregroundColor = Application.Properties.getValue("ForegroundColor");
                 var model = _updater.updateModel();
 
                 if (model instanceof PercentModel or model instanceof LabelModel) {
@@ -73,10 +79,10 @@ module Complicated {
                         var percent = (model as PercentModel).percent;
 
                         dc.setPenWidth(4);
-                        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+                        dc.setColor(arc_color_b, backgroundColor);
                         dc.drawCircle(_centerX, _centerY, _radius);
 
-                        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+                        dc.setColor(arc_color_f, backgroundColor);
                         dc.setPenWidth(2);
 
                         // Start drawing from the top
@@ -91,9 +97,9 @@ module Complicated {
                     } 
 
                     // Draw the label
-                    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+                    dc.setColor(text_color_b, backgroundColor);
                     dc.drawText(_centerX+1, _centerY+1, Graphics.FONT_TINY, label, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
-                    dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+                    dc.setColor(text_color_f, backgroundColor);
                     dc.drawText(_centerX, _centerY, Graphics.FONT_TINY, label, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
                 } else if (model instanceof StringModel) {
@@ -101,7 +107,7 @@ module Complicated {
                     var label = model.label;
 
                     // Draw the label
-                    dc.setColor(foregroundColor, Graphics.COLOR_TRANSPARENT);
+                    dc.setColor(foregroundColor, backgroundColor);
                     dc.drawText(_centerX, _centerY + (_radius * .75), Graphics.FONT_TINY, label, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);                    
                 }
             }

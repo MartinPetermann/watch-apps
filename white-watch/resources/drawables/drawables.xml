@@ -24,52 +24,10 @@
         </palette>        
     </bitmap>
 
-    <bitmap id="background" filename="x1.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
-    </bitmap>
-
-    <bitmap id="background1" filename="h1.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
-    </bitmap>  
-
-    <bitmap id="background2" filename="h2.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
-    </bitmap>  
-
-    <bitmap id="background3" filename="h3.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
-    </bitmap>  
-
-    <bitmap id="background4" filename="h4.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
-    </bitmap>  
-
-    <bitmap id="background5" filename="h5.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
-    </bitmap>  
-
-    <bitmap id="background6" filename="h6.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
-    </bitmap>  
-
-    <bitmap id="background7" filename="h7.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
-    </bitmap>
-
-    <bitmap id="background9" filename="h9.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen" dithering="none">      
-    </bitmap>
-
-    <bitmap id="background11" filename="h11.png" automaticPalette="true" scaleX="100%" scaleY="100%" scaleRelativeTo="screen"> 
-    </bitmap>
-
-    <bitmap id="background12" filename="h12.png" automaticPalette="true" scaleX="100%" scaleY="100%" scaleRelativeTo="screen"> 
-    </bitmap>
-
-    <bitmap id="background13" filename="h13.png" automaticPalette="true" scaleX="100%" scaleY="100%" scaleRelativeTo="screen"> 
-    </bitmap>
-
     <bitmap id="nice" filename="gray.3.png" scaleX="32%" scaleY="32%" scaleRelativeTo="screen" dithering="none">      
     </bitmap>  
 
-    <bitmap id="background14" filename="h14.png" automaticPalette="true" scaleX="100%" scaleY="100%" scaleRelativeTo="screen"> 
-    </bitmap>
-
-    <bitmap id="background15" filename="h15.png" automaticPalette="true" scaleX="100%" scaleY="100%" scaleRelativeTo="screen"> 
-    </bitmap>
-
-    <bitmap id="background16" filename="h16.png" automaticPalette="true" scaleX="100%" scaleY="100%" scaleRelativeTo="screen"> 
+    <bitmap id="background" filename="h16.png" automaticPalette="true" scaleX="100%" scaleY="100%" scaleRelativeTo="screen"> 
     </bitmap>
 
     <bitmap id="rim" filename="Minutensprunguhr_ticks_black.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen"> 

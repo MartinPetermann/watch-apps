@@ -10,44 +10,33 @@ import Complicated;
 import Misc;
 
 class SimpleAnalogView extends WatchUi.WatchFace {
-    var lowPower = false;
-	var showTicks;
-	var showBoxes;
-	var second_hand_color;
-	var hour_min_hand_color;
-	var show_min_ticks;
-	
-	var mySettings = System.getDeviceSettings();
-    var screen_width = mySettings.screenWidth;
+	private const mySettings = System.getDeviceSettings();
+    private const screen_width = mySettings.screenWidth;
 
-    var hour_hand_length = Misc.AdaptSize(Application.Properties.getValue("hour_hand_length"));
-    var min_hand_length = Misc.AdaptSize(Application.Properties.getValue("min_hand_length"));
-    var sec_hand_length = Misc.AdaptSize(Application.Properties.getValue("sec_hand_length"));
-    var hour_hand_stroke = Misc.AdaptSize(Application.Properties.getValue("hour_hand_stroke"));
-    var min_hand_stroke = Misc.AdaptSize(Application.Properties.getValue("min_hand_stroke"));
-    var sec_hand_stroke = Misc.AdaptSize(Application.Properties.getValue("sec_hand_stroke"));
-    var hour_hand_width_1 = Misc.AdaptSize(Application.Properties.getValue("hour_hand_width_1"));
-    var hour_hand_width_2 = Misc.AdaptSize(Application.Properties.getValue("hour_hand_width_2"));
-    var min_hand_width_1 = Misc.AdaptSize(Application.Properties.getValue("min_hand_width_1"));
-    var min_hand_width_2 = Misc.AdaptSize(Application.Properties.getValue("min_hand_width_2"));
-    var sec_hand_width = Misc.AdaptSize(Application.Properties.getValue("sec_hand_width"));
-	var sec_hand_diam = Misc.AdaptSize(Application.Properties.getValue("sec_hand_diam"));
-	var rim = Misc.AdaptSize(Application.Properties.getValue("rim"));
+    private const hour_hand_length = Misc.AdaptSize(Application.Properties.getValue("hour_hand_length"));
+    private const min_hand_length = Misc.AdaptSize(Application.Properties.getValue("min_hand_length"));
+    private const sec_hand_length = Misc.AdaptSize(Application.Properties.getValue("sec_hand_length"));
+    private const hour_hand_stroke = Misc.AdaptSize(Application.Properties.getValue("hour_hand_stroke"));
+    private const min_hand_stroke = Misc.AdaptSize(Application.Properties.getValue("min_hand_stroke"));
+    private const sec_hand_stroke = Misc.AdaptSize(Application.Properties.getValue("sec_hand_stroke"));
+    private const hour_hand_width_1 = Misc.AdaptSize(Application.Properties.getValue("hour_hand_width_1"));
+    private const hour_hand_width_2 = Misc.AdaptSize(Application.Properties.getValue("hour_hand_width_2"));
+    private const min_hand_width_1 = Misc.AdaptSize(Application.Properties.getValue("min_hand_width_1"));
+    private const min_hand_width_2 = Misc.AdaptSize(Application.Properties.getValue("min_hand_width_2"));
+    private const sec_hand_width = Misc.AdaptSize(Application.Properties.getValue("sec_hand_width"));
+	private const sec_hand_diam = Misc.AdaptSize(Application.Properties.getValue("sec_hand_diam"));
 
-    var relative_center_radius = .025;
+    private const backgroundColor = Application.Properties.getValue("BackgroundColor");
+	private const second_hand_color = Application.Properties.getValue("SecondHandColor");
+	private const hour_min_hand_color = Application.Properties.getValue("HourMinHandColor");
+	private const text_color_f = Application.Properties.getValue("TextColorF");
+	private const text_color_b = Application.Properties.getValue("TextColorB");
 
-	var image as BitmapType;
-	var secBitmap as BitmapType;
-	var secBitmapX;
-	var secBitmapY;
-	var _complications as Array<ComplicationDrawable>;
+    private var lowPower = false;
+	private var _complications as Array<ComplicationDrawable>;
 
     function initialize() {
         WatchFace.initialize();
-		image = Application.loadResource( Rez.Drawables.background4 ) as BitmapResource;
-		secBitmap = Application.loadResource(Rez.Drawables.second);
-		secBitmapX = secBitmap.getWidth();
-		secBitmapY = secBitmap.getHeight();
 		_complications = new Array<ComplicationDrawable>[4];
     }
 
@@ -82,80 +71,14 @@ class SimpleAnalogView extends WatchUi.WatchFace {
     
 	//use this to update values controlled by settings
 	function updateValues() {
-		second_hand_color = getColor(Application.Properties.getValue("SecondHandColor"));
-		hour_min_hand_color = getColor(Application.Properties.getValue("HourMinHandColor"));\
-		show_min_ticks = Application.Properties.getValue("ShowMinTicks");
-
 	}
 
 	function drawBackground(dc) {
 		var clockTime = System.getClockTime();
 		// screen width == screen height
     	drawDate(dc, screen_width/2, screen_width/8);
-		drawElev(dc, screen_width/2, screen_width - screen_width/4);	  	
-    	dc.setColor(hour_min_hand_color, Graphics.COLOR_TRANSPARENT);
-		drawHands(dc, clockTime.hour, clockTime.min, clockTime.sec, Graphics.COLOR_BLACK, Graphics.COLOR_BLACK, Graphics.COLOR_DK_RED);
-	}
-
-	//takes a number from settings and converts it to the assosciated color
-	function getColor(num) {
-		if(num == 0) {
-			return Graphics.COLOR_BLACK;
-		}
-
-		if(num == 1) {
-			return Graphics.COLOR_WHITE;
-		}
-
-		if(num == 2) {
-			return Graphics.COLOR_LT_GRAY;
-		}
-
-		if(num == 3) {
-			return Graphics.COLOR_DK_GRAY;
-		}
-
-		if(num == 4) {
-			return Graphics.COLOR_BLUE;
-		}
-
-		if(num == 5) {
-			return 0x02084f;
-		}
-
-		if(num == 6) {
-			return Graphics.COLOR_RED;
-		}
-
-		if(num == 7) {
-			return 0x730000;
-		}
-
-		if(num == 8) {
-			return Graphics.COLOR_GREEN;
-		}
-
-		if(num == 9) {
-			return 0x004f15;
-		}
-
-		if(num == 10) {
-			return 0xAA00FF;
-		}
-
-		if(num == 11) {
-			return Graphics.COLOR_PINK;
-		}
-
-		if(num == 12) {
-			return Graphics.COLOR_ORANGE;
-		}
-
-		if(num == 13) {
-			return Graphics.COLOR_YELLOW;
-		}
-
-		return null;
+		drawElev(dc, screen_width/2, screen_width - screen_width/4);
+		drawHands(dc, clockTime.hour, clockTime.min, clockTime.sec);
 	}
 
 	function getRGB(color) {
@@ -230,7 +153,7 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 		}
     }
 
-    function drawHands(dc, clock_hour, clock_min, clock_sec, hour_color, min_color, sec_color)
+    function drawHands(dc, clock_hour, clock_min, clock_sec)
     {
         var hour, min, sec;
 
@@ -239,18 +162,18 @@ class SimpleAnalogView extends WatchUi.WatchFace {
         hour = ( ( ( clock_hour % 12 ) * 60 ) + clock_min );
         hour = hour / (12 * 60.0);
         hour = hour * Math.PI * 2;
-        dc.setColor(hour_color, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(hour_min_hand_color, backgroundColor);
         drawHand(dc, hour, hour_hand_length, hour_hand_width_1, hour_hand_width_2, hour_hand_stroke, false);
 
         // Draw the minute
         min = ( clock_min / 60.0) * Math.PI * 2;
-        dc.setColor(min_color, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(hour_min_hand_color, backgroundColor);
         drawHand(dc, min, min_hand_length, min_hand_width_1, min_hand_width_2, min_hand_stroke, false);
 
         // Draw the seconds
         if(lowPower == false){
             sec = ( clock_sec / 60.0) *  Math.PI * 2;
-            dc.setColor(sec_color, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(second_hand_color, backgroundColor);
             drawHand(dc, sec, sec_hand_length, sec_hand_width, sec_hand_width, sec_hand_stroke, true);
         }
     }
@@ -259,18 +182,18 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 	{
 		var info = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
 		var dateString = Lang.format("$1$.$2$.$3$", [info.day.format("%02d"), info.month.format("%02d"), info.year % 100]);
-		dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);	
+		dc.setColor(text_color_b, backgroundColor);	
 		dc.drawText(x+1, y+1, Graphics.FONT_TINY, dateString, Graphics.TEXT_JUSTIFY_CENTER);
-		dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);	
+		dc.setColor(text_color_f, backgroundColor);	
 		dc.drawText(x, y, Graphics.FONT_TINY, dateString, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
 	function drawElev(dc, x, y)
 	{
 		var height = Toybox.Activity.getActivityInfo().altitude;
-		dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);	
+		dc.setColor(text_color_b, backgroundColor);	
 		dc.drawText(x+1, y+1, Graphics.FONT_TINY, height.format("%d") + " m", Graphics.TEXT_JUSTIFY_CENTER);
-		dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);	
+		dc.setColor(text_color_f, backgroundColor);	
 		dc.drawText(x, y, Graphics.FONT_TINY, height.format("%d") + " m", Graphics.TEXT_JUSTIFY_CENTER);
     }
     

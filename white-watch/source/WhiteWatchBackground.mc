@@ -5,16 +5,20 @@ import Toybox.Graphics;
 import Misc;
 
 class Background extends WatchUi.Drawable {
+    private const mySettings = System.getDeviceSettings();
+    private const screen_width = mySettings.screenWidth;
+
+	private const hour_tick_length = Misc.AdaptSize(Application.Properties.getValue("hour_tick_length"));
+	private const hour_tick_stroke = Misc.AdaptSize(Application.Properties.getValue("hour_tick_stroke"));
+	private const min_tick_length = Misc.AdaptSize(Application.Properties.getValue("min_tick_length"));
+	private const min_tick_stroke = Misc.AdaptSize(Application.Properties.getValue("min_tick_stroke"));
+	private const rim = Misc.AdaptSize(Application.Properties.getValue("rim"));
+
+    private const foregroundColor = Application.Properties.getValue("ForegroundColor");
+    private const backgroundColor = Application.Properties.getValue("BackgroundColor");
+    private const ticks_color = Application.Properties.getValue("TicksColor");
+    
     private var image1 as BitmapType;
-
-    private var mySettings = System.getDeviceSettings();
-    private var screen_width = mySettings.screenWidth;
-
-	private var hour_tick_length = Misc.AdaptSize(Application.Properties.getValue("hour_tick_length"));
-	private var hour_tick_stroke = Misc.AdaptSize(Application.Properties.getValue("hour_tick_stroke"));
-	private var min_tick_length = Misc.AdaptSize(Application.Properties.getValue("min_tick_length"));
-	private var min_tick_stroke = Misc.AdaptSize(Application.Properties.getValue("min_tick_stroke"));
-	private var rim = Misc.AdaptSize(Application.Properties.getValue("rim"));
 
     function initialize() {
         var dictionary = {
@@ -23,7 +27,7 @@ class Background extends WatchUi.Drawable {
 
         Drawable.initialize(dictionary);
 
-        image1 = Application.loadResource( Rez.Drawables.background15 ) as BitmapResource;
+        image1 = Application.loadResource( Rez.Drawables.background ) as BitmapResource;
     }
 
     function drawTicks(dc, length, stroke, num) {
@@ -57,10 +61,10 @@ class Background extends WatchUi.Drawable {
     }
 
     function draw(dc) {
-        dc.setColor(Graphics.COLOR_TRANSPARENT, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(foregroundColor, backgroundColor);
         dc.drawBitmap( 0, 0, image1 );
 
-        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(ticks_color, backgroundColor);
 		drawTicks(dc, hour_tick_length, hour_tick_stroke, 12);
 		drawTicks(dc, min_tick_length, min_tick_stroke, 60);
     }

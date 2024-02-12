@@ -1,17 +1,16 @@
 <properties>
-    <property id="BackgroundColor" type="number">5</property>
-    <property id="BackgroundColor1" type="number">4</property>
-    <property id="Background" type="number">0</property>
-    <property id="ForegroundColor" type="number">0</property>
-    <property id="SecondHandColor" type="number">6</property>
-    <property id="HourMinHandColor" type="number">0</property>
-    <property id="AlwaysOn" type="boolean">true</property>
-    <property id="RightBoxDisplay1" type="number">1</property>
-    <property id="ShowMinTicks" type="boolean">true</property>
+    <property id="ForegroundColor" type="number">-1</property>
+    <property id="BackgroundColor" type="number">-1</property>
+    <property id="SecondHandColor" type="number">0xAA0000</property>
+    <property id="HourMinHandColor" type="number">0x000000</property>
+    <property id="TicksColor" type="number">0x000000</property>
+    <property id="TextColorF" type="number">0x000000</property>
+    <property id="TextColorB" type="number">0xFFFFFF</property>
+    <property id="ArcColorF" type="number">0xFFFFFF</property>
+    <property id="ArcColorB" type="number">0x000000</property>
 
     <property id="Complication1" type="number">0</property>
     <property id="Complication2" type="number">1</property>
-
 
     <!-- like on https://codepen.io/jobe451/pen/rNWrqPw
 	see schweizer_bahnhofsuhr.jpg -->
