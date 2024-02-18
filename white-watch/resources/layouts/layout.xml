@@ -2,12 +2,13 @@
 
 <layout id="WatchFace">
     <drawable class="Background" />
-    <drawable id="Complication1" class="Complicated.ComplicationDrawable">
+    
+    <drawable id="Battery" class="Complicated.ComplicationDrawable">
         <param name="locX">25</param>
         <param name="locY">50</param>
     </drawable>
 
-    <drawable id="Complication2" class="Complicated.ComplicationDrawable">
+    <drawable id="Steps" class="Complicated.ComplicationDrawable">
         <param name="locX">75</param>
         <param name="locY">50</param>
     </drawable>

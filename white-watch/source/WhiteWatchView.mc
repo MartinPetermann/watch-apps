@@ -33,29 +33,29 @@ class SimpleAnalogView extends WatchUi.WatchFace {
 	private const text_color_b = Application.Properties.getValue("TextColorB");
 
     private var lowPower = false;
-	private var _complications as Array<ComplicationDrawable>;
+    private var battery_comp;
+    private var steps_comp;
 
     function initialize() {
         WatchFace.initialize();
-		_complications = new Array<ComplicationDrawable>[4];
     }
 
     // Load your resources here
     function onLayout(dc) {
 		dc.setAntiAlias(true);
 
-			//increase the size of resources so they are visible on the Venu
+		//increase the size of resources so they are visible on the Venu
 		updateValues();
 
 		setLayout(Rez.Layouts.WatchFace(dc));
 
-		_complications[0] = View.findDrawableById("Complication1") as ComplicationDrawable;
-        var prop = Application.Properties.getValue("Complication1");
-        _complications[0].setModelUpdater(Complicated.getComplication(prop));
+		battery_comp = View.findDrawableById("Battery") as ComplicationDrawable;
+        var battery = new Complicated.Battery();
+        battery_comp.setModelUpdater(battery);
 
-        _complications[1] = View.findDrawableById("Complication2") as ComplicationDrawable;    
-        prop = Application.Properties.getValue("Complication2");
-        _complications[1].setModelUpdater(Complicated.getComplication(prop));
+        steps_comp = View.findDrawableById("Steps") as ComplicationDrawable;    
+        var steps = new Complicated.Steps();
+        steps_comp.setModelUpdater(steps);
     }
 
     // Update the view

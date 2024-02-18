@@ -77,37 +77,4 @@ module Complicated {
         //! for the complication
         function updateModel() as Complicated.Model;
     };
-
-
-    //! Enum of all available complications
-    enum Complications {
-        COMPLICATED_BATTERY,
-        COMPLICATED_STEPS,
-        COMPLICATED_DATE,
-        COMPLICATED_HEIGHT
-    }
-
-    //! Return an updater based on the requested complication
-    //! @param complication Complication requested
-    //! @return Model updater object
-    function getComplication(complication as Complications or Number) as ModelUpdater? {
-        // Note that we haven't declared that any of these
-        // meet the interface. Because they match the declarations
-        // they automatically work. 
-        switch (complication) {
-            case COMPLICATED_BATTERY:
-                return new Complicated.Battery();
-            case COMPLICATED_STEPS:
-                return new Complicated.Steps();
-            case COMPLICATED_DATE:
-                return new Complicated.Date();
-            // case COMPLICATED_HR:
-            //     return new Complicated.HeartRate();
-            // case COMPLICATED_ACTIVE_MINUTES_WEEK:
-            //    return new Complicated.ActiveMinutes();
-            default:
-                return null;
-        }
-    }
-
 }

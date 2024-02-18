@@ -9,9 +9,6 @@
     <property id="ArcColorF" type="number">0xFFFFFF</property>
     <property id="ArcColorB" type="number">0x000000</property>
 
-    <property id="Complication1" type="number">0</property>
-    <property id="Complication2" type="number">1</property>
-
     <!-- like on https://codepen.io/jobe451/pen/rNWrqPw
 	see schweizer_bahnhofsuhr.jpg -->
     <property id="hour_hand_length" type="float">32</property>
