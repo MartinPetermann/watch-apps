@@ -1,7 +1,7 @@
 The watch face of this watch consists of the following:
 
-Sswiss railway clock: https://en.wikipedia.org/wiki/Swiss_railway_clock
-  I based the design on the following construction plan: https://www.eguide.ch/wp-content/uploads/2261/1508_CHD151_foto_b.jpg
+* Swiss railway clock: https://en.wikipedia.org/wiki/Swiss_railway_clock
+  based the design on the following construction plan: https://www.eguide.ch/wp-content/uploads/2261/1508_CHD151_foto_b.jpg
 * Lyon lead medallion: https://www.judaism-and-rome.org/lyon-medallion
 * Sunrise at Uetliberg: https://en.wikipedia.org/wiki/Uetliberg
 * The 12 stars on the flag of Europe: https://en.wikipedia.org/wiki/Flag_of_Europe
