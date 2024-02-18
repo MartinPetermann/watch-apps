@@ -13,16 +13,14 @@ module Complicated {
     //! Class to generate the battery model
     class Battery {
 
-        //! Battery icons
-        private var _icon as BitmapType;  
+        //! Battery icons (? => can be null)
+        private var _icon as BitmapType?;  
         private var _label as String;
-        private var _show_icon as Boolean;
 
         //! Constructor
         public function initialize() {
             _icon = Application.loadResource(Rez.Drawables.battery);
             _label = "🔋";
-            _show_icon = true;
         }
 
         //! Update the model 
@@ -31,7 +29,7 @@ module Complicated {
             var battery = stats.battery;
 
             // Return the new model
-            return new PercentModel(_label, battery.toNumber(), _icon, _show_icon);
+            return new PercentModel(_label, battery.toNumber(), _icon);
         }    
 
     }

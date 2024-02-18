@@ -19,21 +19,18 @@ module Complicated {
         //! Percent to fill the arc.
         public var percent as Number;
         //! Graphics.BitmapType is a new named type that covers
-        //! all image representations
-        public var icon as BitmapType;
-
-        public var show_icon as Boolean;
+        //! all image representations (? => can be null)
+        public var icon as BitmapType?;
 
         //! Constructor
         //! @param p 0 - 100 value for progress bar
         //! @param i Icon to display
-        public function initialize(l as String, p as Number, i as BitmapType, si as Boolean) {
+        public function initialize(l as String, p as Number, i as BitmapType?) {
             // Initializing the members in the constructor
             // allows you to declare them as not being null
             label = l;
             percent = p;
             icon = i;
-            show_icon = si;
         }
     }
 

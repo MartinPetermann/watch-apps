@@ -62,13 +62,12 @@ module Complicated {
                 var model = _updater.updateModel();
 
                 if (model instanceof PercentModel or model instanceof LabelModel) {
-                    var icon = model.icon;
-                    var show_icon = model.show_icon;
-                    var iconWidth = icon.getWidth();
-                    var iconHeight = icon.getHeight();                
+                    if (model.icon != null) {
+                        var icon = model.icon;
+                        var iconWidth = icon.getWidth();
+                        var iconHeight = icon.getHeight();                
 
-                    // Draw the icon
-                    if (show_icon) {
+                        // Draw the icon
                         dc.drawBitmap(_centerX - (iconWidth / 2), _centerY - (iconHeight / 2), icon);
                     }
 
