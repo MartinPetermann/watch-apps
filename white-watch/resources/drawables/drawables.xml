@@ -27,7 +27,7 @@
     <bitmap id="nice" filename="gray.3.png" scaleX="32%" scaleY="32%" scaleRelativeTo="screen" dithering="none">      
     </bitmap>  
 
-    <bitmap id="background" filename="h15.png" automaticPalette="true" scaleX="100%" scaleY="100%" scaleRelativeTo="screen"> 
+    <bitmap id="background" filename="background2.png" automaticPalette="true" scaleX="100%" scaleY="100%" scaleRelativeTo="screen"> 
     </bitmap>
 
     <bitmap id="rim" filename="Minutensprunguhr_ticks_black.png" scaleX="100%" scaleY="100%" scaleRelativeTo="screen"> 

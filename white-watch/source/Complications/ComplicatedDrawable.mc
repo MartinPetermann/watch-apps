@@ -35,6 +35,7 @@ module Complicated {
             // Use the given point as the center point
             var backgroundHeight = _background.getHeight();
 
+            // locX and locY are specified as percent values in layout.xml
             _centerX = params[:locX]*screen_width/100;
             _centerY = params[:locY]*screen_height/100;
             _radius = backgroundHeight / 1.25;
