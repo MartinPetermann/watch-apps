@@ -10,4 +10,4 @@ The watch face of this watch consists of the following:
 * The number of steps and the percentage of steps achieved (ring) in the current day on the right.
 * The pecentage The percentage of battery charge (ring) on the left.
 
-![Uhr](https://github.com/MartinPetermann/watch-apps/assets/159910240/603f33c1-1648-452c-b123-9c571ef1192d)
+![Uhr2](https://github.com/MartinPetermann/watch-apps/assets/159910240/1c26561b-9dc9-4317-90c9-7ed93fd244dd)
